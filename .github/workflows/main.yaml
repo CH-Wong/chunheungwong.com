@@ -26,14 +26,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with: 
+        with:
           submodules: true
           fetch-depth: 0
 
-      - name: Setup Hugo version
+      - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
-        with: 
+        with:
           hugo-version: 'latest'
+          extended: true
 
       # Runs a single command using the runners shell
       - name: Build site
@@ -42,7 +43,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Deploy to Azure Blob Storage
         uses: bacongobbler/azure-blob-storage-upload@v1.2.0
-        with: 
+        with:
             source_dir: public #Hugo build generates this file after build
             container_name: $web
             connection_string: ${{ secrets.BLOB_STORAGE_CONNECTION_STRING }}
