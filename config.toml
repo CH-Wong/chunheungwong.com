@@ -1,0 +1,4 @@
+baseURL = 'https://chunheungwong.nl'
+languageCode = 'en-us'
+title = "Chun's Portfolio Website"
+theme = 'terminal'
