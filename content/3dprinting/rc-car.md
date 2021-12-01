@@ -1,6 +1,17 @@
----
-title: "Rc Car"
-date: 2021-12-01T20:56:40+01:00
-draft: true
----
++++
+title = "Building 3D printed RC car"
+date = "2021-11-30T19:46:42+01:00"
+author = "Chun Heung Wong"
+authorTwitter = "" #do not include @
+cover = ""
+tags = ["3d-printing", "radio-controlled"]
+keywords = ""
+description = ""
+showFullContent = false
+readingTime = false
+draft = false
++++
 
+# Why?
+
+To be written...
