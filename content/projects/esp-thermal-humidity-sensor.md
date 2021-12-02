@@ -8,6 +8,7 @@ keywords = ["", ""]
 description = "" 
 showFullContent = false
 readingTime = false 
+draft = true
 +++
 
 [Github Page](https://github.com/CH-Wong/esp8266-temp-hum-sensor)

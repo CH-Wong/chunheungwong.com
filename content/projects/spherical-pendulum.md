@@ -8,15 +8,15 @@ tags = ["simulation", "classical-mechanics", "chaos"]
 keywords = ["simulation", "chaos"]
 description = ""
 showFullContent = false
-readingTime = 15
+readingTime = true
 draft = false
 +++
 
 To be written... 
 
 
-Here is some embedded equation images frmo LaTeX using [CodeCogs](https://latex.codecogs.com/):
+Here is some embedded LaTeX equation images using [CodeCogs](https://latex.codecogs.com/):
 
-{{< equation src="https://latex.codecogs.com/gif.latex?\int&space;x^{2}dx" >}}
+{{< equation "\int x^{2}dx" >}}
 
-{{< equation-centered src="https://latex.codecogs.com/gif.latex?\int&space;x^{2}dx" >}}
+{{< equation-centered src="\int x^{2}dx" >}}

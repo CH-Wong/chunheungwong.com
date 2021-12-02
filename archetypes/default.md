@@ -7,5 +7,6 @@ tags = ["", ""]
 keywords = ["", ""] 
 description = "" 
 showFullContent = false
-readingTime = false 
+readingTime = true 
+draft = false
 +++
