@@ -4,7 +4,7 @@ date = "2021-11-30T19:46:42+01:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""
-tags = ["", ""]
+tags = ["first", "post"]
 keywords = ["first", "post"]
 description = ""
 showFullContent = false
@@ -31,4 +31,4 @@ When I told my friend I hosted websites on a virtual machine on the cloud, he sa
 
 ## How to make a static webpage?
 What is a more fitting to have as a first post on my static website than a "How to set-up a static website" post?
-View my tutorial on it on my [post here](/coding/how-i-made-this-site). 
+View my tutorial on it on my [post here](/projects/how-i-made-this-site). 
