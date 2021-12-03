@@ -13,7 +13,7 @@ draft = false
 +++
 
 
-On this page, I explain how I made this webpage. What makes this webpage "special", is that I it is a static webpage. No server needed, no fancy routing needed, just some static files hosted on a filehosting service. You can find the files needed to build this webpage on my [Github Page](https://github.com/CH-Wong/chunheungwong.nl) as reference. 
+On this page, I explain how I made this webpage. What makes this webpage "special", is that I it is a static webpage. No server needed, no fancy routing needed, just some static files hosted on a filehosting service. You can find the files needed to build this webpage on my [Github Page](https://github.com/CH-Wong/chunheungwong.com) as reference. 
 
 
 # Contents
@@ -63,13 +63,13 @@ cd 'C:\Hugo\Sites'
 
 To create a new website scaffolding simply type 
 ```powershell
-hugo new site chunheungwong.nl
+hugo new site chunheungwong.com
 ```
 
-where you should replace `chunheungwong.nl` with website domain name you want to use. The `hugo` package has now helped you build a scaffolding for your webpage. It should look something like this:
+where you should replace `chunheungwong.com` with website domain name you want to use. The `hugo` package has now helped you build a scaffolding for your webpage. It should look something like this:
 
 ```
---- chunheungwong.nl/
+--- chunheungwong.com/
     |--- archetypes
     |--- content
     |--- data
@@ -97,7 +97,7 @@ hugo new posts/my-first-post.md
 
 You will see that new files and folders have been created
 ```
---- chunheungwong.nl/
+--- chunheungwong.com/
     |   ...
     |-- content
         |-- posts
@@ -234,7 +234,7 @@ Now that we have a CDN endpoint, we can add custom domains to it. We first need 
 | cdnverify | 5min | ALIAS | yourendpoint.azureedge.net |
 
 These records allow Azure to validate that this domain is indeed yours and can be used to connect to the endpoint. 
-The first one is to allow the subdomain `www.chunheungwong.nl` to also access the blob. The second is to enable  
+The first one is to allow the subdomain `www.chunheungwong.com` to also access the blob. The second is to enable  
 
 Simply click on your CDN endpoint that is now listed in the same page above. 
 
@@ -246,7 +246,7 @@ To add an SSL certificate for HTTPS, you simply click on the custom domain in yo
 We are now ready to upload files to our Azure and create our website! First let's convert our Hugo files to the files we need for our actual webpage. This is very simple. Navigate to the hugo website directory and simply enter:
 
 ```powershell
-cd "C:\Hugo\Sites\chunheungwong.nl
+cd "C:\Hugo\Sites\chunheungwong.com
 hugo
 ```
 Yes. Just `hugo`. You will now find that a `/public/` folder was added to your files. This is our website! We want to upload this folder to our Azure blob. There are many ways to do this. You can manually upload them through the portal using the `upload` button located in your blob. You can install a Virtual Studio Code add-on called [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage) that connects to your blob and uploads it for you. Personally, I wanted to try using Github actions for the first time, as I have never tried automated deployment. Have to start with CI/CD somewhere right? 
@@ -259,24 +259,24 @@ What we are trying to achieve is having Github not only host the files for versi
 3. Authenticate with our Azure blob.
 4. Update the filestorage to match our updated webpage.
 
-First things first, let's get our `C:/Hugo/Sites/chunheungwong.nl` directory on Github. Create a new repository on github called `chunheungwong.nl`, where obviously you fill in the name of your own domain. This repository **needs to be public**, because Github actions are only available for public (or Enterprise) repositories. 
+First things first, let's get our `C:/Hugo/Sites/chunheungwong.com` directory on Github. Create a new repository on github called `chunheungwong.com`, where obviously you fill in the name of your own domain. This repository **needs to be public**, because Github actions are only available for public (or Enterprise) repositories. 
 
 To connect your local directory with your remote Github repository, you can use
 
 ```git
 # Go to your directory
-cd 'C:\Hugo\Sites\chunheungwong.nl'
+cd 'C:\Hugo\Sites\chunheungwong.com'
 # Initialize this as a git directory
 git init
 # Add your GitHub repository as remote origin
-git remote add origin https://github.com/CH-Wong/chunheungwong.nl
+git remote add origin https://github.com/CH-Wong/chunheungwong.com
 # Pull the data
 git pull origin main
 ```
 
-where again, you should replace `CH-Wong` with your username and `chunheungwong.nl` with the name of your own GitHub repository. At this point I would recommended creating a `.gitignore` file with `public/*` in it, to prevent it from being pushed to GitHub everytime. 
+where again, you should replace `CH-Wong` with your username and `chunheungwong.com` with the name of your own GitHub repository. At this point I would recommended creating a `.gitignore` file with `public/*` in it, to prevent it from being pushed to GitHub everytime. 
 
-To set-up GitHub actions, we are going to create a new folder `.../chunheungwong.nl/.github` with the file `main.yaml` inside, which contains instructions for GitHub to build and upload our website. Inside of this file, copy the copy the following code: 
+To set-up GitHub actions, we are going to create a new folder `.../chunheungwong.com/.github` with the file `main.yaml` inside, which contains instructions for GitHub to build and upload our website. Inside of this file, copy the copy the following code: 
 
 ```yaml
 # This is a basic workflow to help you get started with Actions
