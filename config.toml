@@ -1,4 +1,4 @@
-baseURL = 'https://www.chunheungwong.nl'
+baseURL = 'https://www.chunheungwong.com'
 languageCode = 'en-us'
 title = "Chun's Website"
 theme = 'terminal'

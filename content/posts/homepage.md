@@ -14,6 +14,10 @@ weight = 0
 *Photo by [Ashkan Forouzani](https://unsplash.com/) on [Unsplash](https://unsplash.com/s/photos/construction).*
 
 
-Hey, I'm Chun and this is my webpage. I intend to share some projects here, mostly for my own easy access, but maybe for somebody else's entertainment. These projects range from [physics simulations](projects/spherical-pendulum), to [musical compositions](music/pinpin), to some [3D printing Arduino projects](projects/esp-thermal-humidity-sensor). 
+Hey, I'm Chun and this is my webpage. I intend to share some projects here, mostly for my own easy access, but maybe for somebody else's entertainment. These projects range from [physics simulations](/projects/spherical-pendulum), to [musical compositions](/music/pinpin), to some [3D printing Arduino projects](/projects/esp-thermal-humidity-sensor). 
 
-If you came here looking for my CV, you can find it on my [about page](about/cv).
+If you came here looking for my C.V., you can find it on my [about page](/about/cv).
+
+
+- [LinkedIN](https://www.linkedin.com/in/chunheungwong/)
+- [GitHub](https://github.com/CH-Wong)
