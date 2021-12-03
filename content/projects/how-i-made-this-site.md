@@ -148,7 +148,10 @@ The `{{ .Get "src" | safeURL }}` part essentially puts whatever I put in as the 
 
 I think that's pretty cool!
 
-# 3. Creating an Azure Blob/Container
+# 3. Creating an Azure Blob for our Static Webpage
+
+## 3.1 Creating a storage account
+Creating an Azure Storage account
 Now that we have some content we want to publish online, we need a place to put it. In this tutorial we will be making use of MSFT Azure because that's the only one I've tried so far. Naturally, similar services are available on AWS and Google Cloud. To make an Azure Container, you first need to **make an Azure account** at [https://portal.azure.com](https://portal.azure.com).
 
 ![Create Container](/static/static-webpage/create_storage.png)
@@ -173,11 +176,61 @@ Press `Next: Advanced` to continue.
 - Under `Blob storage`, select `Cool: Infrequently accessed data and backup scenarios` unless you are planning on having 1000's of visitors a day.
 - Press `Review + create` to finish up the process
 
-# 3.1 Setting up the Azure Container
+## 3.2 Setting up the storage account
+![Storage Details](/static/static-webpage/static-webpage-setting.png)
 
 
+The first thing we need to do to set up our blob is to enable it for use as a static webpage. 
+1. From the Azure Portal, click on storage accounts.
+2. Select your storage container from the list (e.g. `chunportfoliowebpage`)
+3. In the left menu, under `Data management`, click on `Static website`.
+4. Toggle Static website to `Enabled`.
 
-# 4. Setting up DNS settings
+This will show you your `Primary endpoint`, a webaddress you and others can use to access the files in your container that will make up your webpage later. 
+
+5. Set `Index document name` to `index.html`.
+6. Set `Error document path` to `404.html`.
+
+The last two settings make sure that Azure knows how to route our webpage. Now that we have set-up our storage account to be able to host static webpages, we need to create a blob where we can actually upload our static webpage to. 
 
 
-# 5. Setting up SSL certificate for HTTPS
+![Storage Details](/static/static-webpage/create_blob.png)
+
+- Under `Data storage`, select `Containers`.
+- Create a container by clicking the `+ Container` button. 
+- Name the container `$web`.
+- Set the `Public access level` to `Blob (anonymous read access for blobs only)`. 
+    - To be honest, I am not completely sure what the difference is, but [this reference](https://www.serverless360.com/blog/azure-blob-storage-vs-file-storage) suggests that blobs are more suitable for our purposes.
+
+You now have your first blob, called `$web`! You can access any files you upload here using the blobs URL. You can find the blob's URL by clicking on the `$web` blob, and accessing its `Properties` under `Settings` on the left. It should look something like `https://chunportfoliowebpage.blob.core.windows.net/$web`. If you got there in your browser, you will most likely encounter an error; we haven't uploaded any files yet! If you want to try, you can upload a file using the `Upload` of the `$web` blob. If you upload a text file, e.g. `test.txt`, you can access it using the URL `https://chunportfoliowebpage.blob.core.windows.net/$web/test.txt`. That's essentially how our webpage is going to work!
+
+# 4. Setting up a custom domain
+If you have a personal domain, you can redirect the traffic to that domain name to the Azure storage blob. However, depending on the location of the requester, the webpage could load quite slow. As such, it is recommended to use a Content-delivery Network (CDN). This is essentially a bunch of geographically separeted servers that cache our webpage to make it possible to load it faster ([read more here](https://www.akamai.com/our-thinking/cdn/what-is-a-cdn)).
+
+
+## 4.1 Setting up Content Delivery Network (CDN)
+Conveniently, Azure has its own CDN service which we can quite easily connect to our storage account and blobs. 
+
+## 4.1 Creatig an endpoint for the CDN
+To use the Azure CDN, we need to create a so-called endpoint. This is essentially another URL you can use to access your files, but this time they will be delivered by the CDN. To create an endpoint, navigate to `Azure CDN` under `Security + networking`. 
+
+## 4.1 Adding a custom domain to our CDN
+
+## 4.2 Setting up SSL certificate for HTTPS
+
+
+## 3.3 Deploying our files to the Azure blob
+We are now ready to upload files to our Azure and create our website! 
+
+### 3.3.1 Manually deploying files
+
+### 3.3.2 Automated upload using Github
+
+#### Adding our files to a Github directory.
+
+
+#### Authorizing Github to update our Azure Blob
+
+#### Setting up Github actions for automated update on `git push`
+
+
