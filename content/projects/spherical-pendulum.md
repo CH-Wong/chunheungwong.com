@@ -13,10 +13,4 @@ draft = false
 +++
 
 To be written... 
-
-
-Here is some embedded LaTeX equation images using [CodeCogs](https://latex.codecogs.com/):
-
-{{< equation "\int x^{2}dx" >}}
-
-{{< equation-centered src="\int x^{2}dx" >}}
+https://www.cfm.brown.edu/people/dobrush/am34/Mathematica/ch3/spherical.html
