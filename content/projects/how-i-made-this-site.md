@@ -23,7 +23,7 @@ I will start with showing how you can build a simple website with relative ease 
 1. [Creating a static webpage with Hugo](#hugo)
 2. [Setting up Azure Blob/Container](#settingupblob)
 3. [Setting up a custom domain](#customdomain)
-4. [Setting up deployment through Github actions](#githubdeployment)
+4. [Deploying files to an Azure Storage Container](#deployment)
 
 # 1. Creating a static webpage with Hugo {#hugo}
 This website is created using [Hugo](https://gohugo.io/), a standalone package that transforms [Markdown (.md)](https://www.markdownguide.org/basic-syntax/) text files to html/css. Their [Quickstart page](https://gohugo.io/getting-started/quick-start/) is quite self-explanatory, but for the sake of completeness I will post my own learning process here as well.
@@ -261,7 +261,7 @@ The `{{ .Get "src" | safeURL }}` part essentially puts whatever I put in as the 
 
 I think that's pretty cool! In the next part, we will be checking out how to create an Azure Storage Container to host our files in.
 
-# 2. Creating an Azure Storage Container for our Static Webpage {#settingupblob}
+# 2. Creating an Azure Storage Container {#settingupblob}
 ## 2.1 Creating a storage account
 Creating an Azure Storage account
 Now that we have some content we want to publish online, we need a place to put it. In this tutorial we will be making use of MSFT Azure because that's the only one I've tried so far. Naturally, similar services are available on AWS and Google Cloud. To make an Azure Container, you first need to **make an Azure account** at [https://portal.azure.com](https://portal.azure.com).
@@ -313,13 +313,12 @@ The last two settings make sure that Azure knows how to route our webpage. Now t
 - Set the `Public access level` to `Blob (anonymous read access for blobs only)`. 
     - To be honest, I am not completely sure what the difference is, but [this reference](https://www.serverless360.com/blog/azure-blob-storage-vs-file-storage) suggests that blobs are more suitable for our purposes.
 
-You now have your first blob, called `$web`! You can access any files you upload here using the blobs URL. You can find the blob's URL by clicking on the `$web` blob, and accessing its `Properties` under `Settings` on the left. It should look something like `https://chunportfoliowebpage.blob.core.windows.net/$web`. If you got there in your browser, you will most likely encounter an error; we haven't uploaded any files yet! If you want to try, you can upload a file using the `Upload` of the `$web` blob. If you upload a text file, e.g. `test.txt`, you can access it using the URL `https://chunportfoliowebpage.blob.core.windows.net/$web/test.txt`. That's essentially how our webpage is going to work!
+You now have your container called `$web`! You can access any files you upload here using the container's URL. You can find the container's URL by clicking on the `$web` container, and accessing its `Properties` under `Settings` on the left. It should look something like `https://yourstoragecontainer.blob.core.windows.net/$web`. If you got there in your browser, you will most likely encounter an error; we haven't uploaded any files yet! If you want to try, you can upload a file using the `Upload` of the `$web` container. If you upload a text file, e.g. `test.txt`, you can access it using the URL `https://yourstoragecontainer.blob.core.windows.net/$web/test.txt`. That's essentially how our webpage is going to work!
 
-# 3. Setting up a custom domain {#customdomain}
-If you have a personal domain, you can redirect the traffic to that domain name to the Azure storage blob. However, depending on the location of the requester, the webpage could load quite slow. As such, it is recommended to use a [Content-delivery Network (CDN)](https://www.akamai.com/our-thinking/cdn/what-is-a-cdn)).. This is essentially a bunch of geographically separeted servers that cache our webpage to make it possible to load it faster and increase reliability.
+## 2.3 Setting up Content Delivery Network (CDN)
+Having external users directly access your storage container using `https://yourstoragecontainer.blob.core.windows.net/$web/test.txt` can be quite slow, depending on the location of the requester. Conveniently, Azure has its own [Content-delivery Network (CDN)](https://www.akamai.com/our-thinking/cdn/what-is-a-cdn)) which we can quite easily connect to our storage container. This is essentially a bunch of geographically separeted servers that cache our webpage to make it possible to load it faster and increase reliability. 
 
-## 3.1 Setting up Content Delivery Network (CDN)
-Conveniently, Azure has its own CDN service which we can quite easily connect to our storage account and blobs. To use the Azure CDN, we need to create a so-called endpoint. This is essentially another URL you can use to access your files, but this time they will be delivered by the CDN. To create an endpoint, navigate to `Azure CDN` under `Security + networking`. 
+To use the Azure CDN, we need to create a so-called endpoint. This is essentially another URL you can use to access your files, but this time they will be delivered through the CDN. To create an endpoint, navigate to `Azure CDN` under `Security + networking`. 
 
 Under `New endpoint`, fill in
 - CDN profile: e.g. `staticwebsites`. 
@@ -329,90 +328,28 @@ Under `New endpoint`, fill in
 - Origin hostname: choose `...web.core.windows.net (Static website)`
 - Press `Create`
 
-It might take a few moments for the CDN endpoint to be created.
+It might take a few moments for the CDN endpoint to be created. After its created, you can click on it to see its the `Endpoint hostname`: `https://yourendopoint.azureedge.net`. If you made a test.txt file, you can now also find it with `https://yourendopoint.azureedge.net/test.txt`!
 
-## 3.2 Adding a custom domain to our CDN
-Now that we have a CDN endpoint, we can have our custom domain point to it! That way, our visitors can simply go to `yourdomain.com` instead of `blablabla.web.core.windows.net`. To do that, we have to add your `Endpoint hostname` to your DNS settings. At your newly created CDN endpoint page on the Azure Portal, copy the `Endpoint hostname` at the top-right (something ending with `.azureedge.net`). Go to your DNS provider (godaddy.com, transip.nl, cloudflare.com) and add a CNAME record pointing to your `Endpoint hostname`
-
-| NAME | TTL | TYPE | VALUE |
-|---|---|---|---|
-| www | 5min | CNAME | yourendpoint.azureedge.net |
-
-These records allow Azure to validate that this domain is indeed yours and can be used to connect to the endpoint. 
-The first one is to allow the subdomain `www.yourdomain.com` to access the container. The second is to enable your root or apex domain to also be added. Thats it! We need to wait for your DNS provider to update your changes to the registrar, and for the changes to propagate through the network. 
-
-After these changes have been installed, we can now add your custom domain to your CDN endpoint. 
-
-- Go to your CDN endpoint in the Azure Portal (`Security + networking` -> `Azure CDN` -> `Endpoints`) 
-- Click on your CDN endpoint in the list. 
-- Click on the `+ Custom Domain` and fill in `www.yourdomain.com` for `Custom hostname`.
-- Press `Add`.
-
-If this does not work, the DNS setting may require a bit more time to propagate. You can check this using a [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx), by requesting the DNS settings for `www.yourdomain.com`.
-
-## 3.3 Setting up SSL certificate for HTTPS
-Adding a SSL certificate to your custom subdomain is very simple! Simply click on the custom domain you just added to your CDN endpoint, and toggle `Custom domain HTTPS` to `On` and press `Save`. That's it. Verifying the domain can take quite some time, so hang tight!
-
-## 3.4 Linking your apex domain to the CDN with HTTPS access
-*Now the hard part.* Apparently connecting a subdomain (e.g. `www.yourdomain.com`) to your CDN endpoint is significantly easier to do as opposed to adding your root or apex domain (e.g. yourdomain.com)[^apexdomains]. Especially if you want to add an SSL certificate for HTTPS access. The sad part is obviously that nobody ever uses the `www.` prefix anymore, and `yourdomain.com`  will in this case lead them to an error page. 
-
-[^apexdomains]: Here is a [GitHub Issue](https://github.com/MicrosoftDocs/azure-docs/issues/63977) from 2020 pointing this out.
-
-I've tried a number of options[^5], but found that creating my own SSL certificate using `certbot` was, sadly, the easiest. For this, you will need to have access to a Linux machine. On Windows, you can install a Linux Virtual machine using [VMWare](https://www.vmware.com/products/workstation-player.html). I would recommend using [Ubuntu](https://ubuntu.com/download/desktop) as your firmware. 
-
-[^5]: I've tried creating ALIAS or ANAME records to point towards my CDN Endpoint, as well as to `www.chunheungwong.com`, both of which did not resolve the hostname correctly. I've tried using the Redirect Engine in the Azure CDN settings to redirect traffic from `yourdomain.com` to `www.yourdomain.com`, but even though [Redirect Checker](https://www.redirect-checker.org/) and [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx) said I was properly configured, I could not connect to my static website. There are paid services that integrate with Azure which provided automatically renewed certificates directly from the Azure Portal. However, at ~€15,-/month the certificate would be almost 150-1500x more expensive than the hosting the website itself. 
-
-
-In your linux system, start a terminal and enter the following commands:
-```bash
-sudo apt update
-sudo apt install certbot
-sudo certbot certonly -d yourdomain.com --manual --preferred-challenges dns
-```
-
-This will install [certbot](https://certbot.eff.org/pages/about), an open source tool which allows us to obtain SSL certificates for free from [Let's Encrypt](https://letsencrypt.org/), a non-profit Certificate Authority which provides certificates for free. `certbot` will now ask you a couple of set-up questions, which you need to fill in. 
-
-![certbot](/static/static-webpage/certbot.png)
-
-Finally, it asks you to create a new `TXT` record for your domain, with a given passphrase a value (see image). **Do not press enter before we're sure this record is updated!** As we did in a previous section, we are going to add some new records to our domain. Go to your DNS provider (godaddy.com, cloudflare.com) and a new `TXT` record with the following values, and also a couple more.
-
-| NAME | TTL | TYPE | VALUE |
-|---|---|---|---|
-| _acme-challenge | 5min | TXT | your_passphrase |
-| cdnverify | 5min | CNAME | yourendpoint.azureedge.net |
-| @ | 5min | ALIAS | yourendpoint.azureedge.net |
-
-The first will be used by `certbot` to prove that you indeed own the domain. The other two need to be added to ensure you can add your apex domain to your CDN endpoint later.
-
-After we did this, we can use the [MX Toolbox](https://mxtoolbox.com/SuperTool.aspx?action=txt%3ayourdomain&run=toolpage) to check if our TXT record has been updated. Click the link, and fill in the name of your domain and press `TXT Lookup`. It could take up to 5min for the record to update. If all went well, it should give you the TXT record you just entered with green checkmarks indicating `DNS Record Published`. 
-
-In your terminal, press enter to receive your SSL certificate for `yourdomain.com`, which comprises a private and a public key. To get it into a format Azure understands, we need to merge these files into a `.pfx` file before uploading it to Azure. 
-
-```bash
-sudo openssl pkcs12 -export -out yourdomain.com.pfx -inkey /etc/letsencrypt/live/yourdomain.com/privkey.pem -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem
-```
-
-Back in the Azure Portal, we now need to create a Azure Key Vault. In the search bar at the top, search for `Key Vault`. 
-
-# 4 Deploying our files to the Azure blob {#githubdeployment}
-We are now ready to upload files to our Azure Storage Container and create our website! First we need to convert our `hugo` files into the actual `html/css` website. Navigate to the directory of your website and simply enter:
+# 3 Deploying files to an Azure Storage Container {#deployment}
+Now that we have easy access to our container through the CDN, we are now ready to upload our website to it! First we need to convert our `hugo` files into the actual `html/css` website. Navigate to the directory of your website and simply enter:
 
 ```powershell
 cd "C:\Hugo\Sites\yourdomain.com
 hugo
 ```
-Yes. Just `hugo`. You will now find that a `/public/` folder was added to your files. This is our website! We want to upload this folder to our Azure container. There are many ways to do this. 
+Yes. Just `hugo`. You will now find that a `/public/` folder was added to your files. This is our website! We want to upload this folder to our Azure container. There are many ways to do this. For example:
+
 1. You can manually upload them using the Azure portal by clicking the `upload` button in your `$web` container.
-2. You can install a [Virtual Studio Code (VSCode)](https://code.visualstudio.com/) add-on called [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage) that connects to your `$web` container and uploads it for you. 
+2. Within the [Virtual Studio Code (VSCode)](https://code.visualstudio.com/) IDE, you can install add-on called [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage) that connects to your `$web` container and uploads it for you. 
 3. You can automatically build and deploy your website through GitHub.
 
-Personally, I wanted to try using Github actions for the first time, as I have never tried automated deployment. Have to start with CI/CD somewhere right? I'll try to show you what I've learned so far.
+Personally, I wanted to try using Github actions for the first time, as I have never tried automated deployment. Have to start with [CI/CD](https://www.redhat.com/en/topics/devops/what-is-ci-cd) somewhere right? I'll try to show you what I've learned so far.
 
-## 4.1 Automated deployment using Github actions
-What we are trying to achieve is to have Github not only for version control, but actually use Github's services to 
+## 3.1 Automated deployment using Github actions
+What we are trying to achieve is to use Github not only for version control, but actually use Github's other services to 
 
-1. Create/get an environment (Docker) to process our files.
-2. Use our `hugo` files to build our website (the `hugo` command).
+1. Create an environment to perform the build.
+2. Use our `hugo` files to build our website.
 2. Connect and authenticate with our Azure container.
 3. Update the Azure container to match our updated webpage.
 
@@ -493,7 +430,7 @@ jobs:
 ```
 The `.yaml` file is pretty self-explanatory. The first part essentially tells GitHub to perform these set of actions whenever we push something to the branch `main`. The second part tells it to obtain an environment which meets our needs for building a `hugo` website. The last part site, and deploys it to Azure. A thing that took me some time to undestand was the syntax `uses:.../...`. This essentially points to a piece of code on Github, and uses it for our GitHub action. For example, the `uses: peaceiris/actions-hugo@v2` essentially points to a spcific version of https://github.com/peaceiris/actions-hugo to be used within this Github workflow. 
 
-## 4.2 Authorizing Github to update our Azure Blob
+## 3.2 Authorizing Github to update our Azure Blob
 
 ![Access Keys](/static/static-webpage/access-keys.png)
 
@@ -505,7 +442,7 @@ We need to add this connection string to our GitHub repository. In your browser,
 
 [^6]: These names are taken from the `main.yaml` file above! If you want to use different names, make sure to change them in your `main.yaml` as well.
 
-## 4.3 Deploying to Azure Blob with GitHub
+## 3.3 Deploying to Azure Blob with GitHub
 
 With all our work done now, we can finally deploy our website!
 
@@ -518,6 +455,103 @@ git push
 and watch the magic happen in the `Actions` tab of your GitHub page! After the build has been completed, you should also see that files have been added to the `$web` container in your Azure Portal. But most importantly, your website should now be accessible on your custom domain! Open your browser and go to `www.yourdomain.com` to see the result.
 It could take some time for the content to be updated in the CDN (maybe an hour).
 
+# 4. Setting up a custom domain on Azure CDN {#customdomain}
+We now essentially have our website up and running on the CDN. Naturally, we don't want to use some ugly hostname like `yourendopoint.azureedge.net`, but would much rather have our vistors use an address like `yourdomain.com`! Obviously, you first need to buy a domain to perform this step! Go to websites like godaddy.com or cloudflare.com to get one if you don't have one already.  
+
+## 3.1 Adding the www subdomain to Azure CDN
+To add a custom domain, we have to edit your DNS settings accordingly. At your newly created CDN endpoint page on the Azure Portal, copy the `Endpoint hostname` at the top-right. Go to your DNS provider (godaddy.com, cloudflare.com) and add a CNAME record pointing to your `Endpoint hostname`
+
+| NAME | TTL | TYPE | VALUE |
+|---|---|---|---|
+| www | 5min | CNAME | yourendpoint.azureedge.net |
+
+This points the subdomain `www.yourdomain.com` to the CDN network connected with your storage container. Thats it! We need to wait for your DNS provider to push your changes to the registrar, and for the changes to propagate through the network. After these changes have been pushed through, we can add your custom domain to your CDN endpoint on Azure.
+
+- Go to your CDN endpoint in the Azure Portal (`Security + networking` -> `Azure CDN` -> `Endpoints`) 
+- Click on your CDN endpoint in the list. 
+- Click on the `+ Custom Domain` and fill in `www.yourdomain.com` for `Custom hostname`.
+- Press `Add`.
+
+If this does not work, the DNS setting may require a bit more time to propagate. You can check this using a [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx), by requesting the DNS settings for `www.yourdomain.com`.
+
+## 3.1 Setting up SSL certificate for HTTPS
+Adding a SSL certificate to your custom subdomain is very simple! Simply click on the custom domain you just added to your CDN endpoint, and toggle `Custom domain HTTPS` to `On` and press `Save`. That's it. Verifying the domain can take quite some time, so hang tight! With that, everything is set-up to use `www.yourdomain.com` to host our website in! 
+
+## 3.2 Linking your apex domain to the CDN
+*Now the hard part.* Apparently connecting a subdomain (e.g. `www.yourdomain.com`) to your CDN endpoint is significantly easier to do as opposed to adding your root or apex domain (e.g. yourdomain.com)[^apexdomains]. Especially if you want to add an SSL certificate for HTTPS access. The sad part is obviously that nobody ever uses the `www.` prefix anymore, and `yourdomain.com` will in this case lead them to an error page. 
+
+[^apexdomains]: Here is a [GitHub Issue](https://github.com/MicrosoftDocs/azure-docs/issues/63977) from 2020 pointing this out.
+
+I've tried a number of options[^5], but found that a combination of (temporarily) using Azure DNS and creating my own SSL certificate using `certbot` was, sadly, the easiest way. Let's start with adding the apex/root domain `yourdomain.com` to our CDN endpoint. In principle, the Azure documentation, as well as several tutorials on the web, state that adding the following records to your DNS settings should do the trick
+
+[^5]: I've tried creating ALIAS or ANAME records to point towards my CDN Endpoint, as well as to `www.chunheungwong.com`, both of which did not resolve the hostname correctly. I've tried using the Redirect Engine in the Azure CDN settings to redirect traffic from `yourdomain.com` to `www.yourdomain.com`, but even though [Redirect Checker](https://www.redirect-checker.org/) and [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx) said I was properly configured, I could not connect to my static website. There are paid services that integrate with Azure which provided automatically renewed certificates directly from the Azure Portal. However, at ~€15,-/month the certificate would be almost 150-1500x more expensive than the hosting the website itself. 
+
+| NAME | TTL | TYPE | VALUE |
+|---|---|---|---|
+| @ | 5min | ALIAS | yourcdnendpoint.azureedge.net |
+| cdnverify | 5min | CNAME | yourcdnendpoint.azureedge.net |
+
+These records essentially tell your DNS to point `yourdomain.com` to `yourcdnendpoint.azureedge.net`, which is exactly what we want. The `cdnverify` `CNAME`-record supposedly allows Azure to confirm that indeed your domain is yours and should be allowed to point to your CDN endpoint.  If this works, great! You can move onto the next section on adding an SSL certificate to `yourdomain.com`. If you are less lucky, you might also find that whatever DNS settings you try on your DNS provider's settings, you will not be allowed to add your root domain.
+
+![DNS zone](/static/static-webpage/dnszone.png)
+
+To solve this issue, I found that I was forced to use Azure's DNS services. Don't worry, we can delete them after and go back to the DNS provider of our choice! In your Azure Portal, search for `DNS zones`, and press `+ Create`. Select the resource group you placed your Storage Containers in, and fill in `yourdomain.com` and create the DNS zone. 
+
+![DNS record](/static/static-webpage/dnsrecord.png)
+At your Azure Portal homescreen you will now find your DNS zone `yourdomain.com`. When you click on it, you will be greeted with the familiar table of DNS records. 
+- Click the `+ Record set` button at the top. 
+- Select `A - Alias record to IPv4 address` type.
+- Toggle `Alias record set` to `yes`. 
+- Choose your CDN endpoint in the `Azure resource` dropdown.
+- Set the `TTL unit` to `minutes`. 
+- Press `OK`.
+
+![DNS record](/static/static-webpage/cnamerecord.png)
+For the second record we need to add a CNAME record use for verification by Azure
+- Click the `+ Record set` button at the top. 
+- Select `CNAME ...` type.
+- Toggle `Alias record set` to `No`. 
+- Choose your CDN endpoint in the `Azure resource` dropdown.
+- Set the `TTL unit` to `minutes`. 
+- Press `OK`.
+
+With those settings completed, we now need to tell your DNS provider to use the Azure DNS instead. You can find the addresses of the four Azure DNS `nameservers` (ns) at the top right of your DNS zone. Navigate to your domain's settings on your DNS providers webpage, and copy these addresses into the `nameserver` fields. 
+
+With this finished, we can finally add our apex domain to our CDN endpoint. Navigate back to your CDN endpoint on Azure and go to `Custom domains` under `Settings`. Press `+ Custom domain` and fill in `yourdomain.com`. It could take a few minutes for the DNS record changes to propagate. 
+
+After this is finished, you can go ahead and delete the Azure DNS zone. Just don't forget to reset the nameservers of your domain at your DNS provider! If you want to continue to use the Azure DNS Zone, copy the existing DNS records from your original DNS provider. You should now be able to access your website using `http://yourdomain.com`
+
+# 3.3 Adding a custom SSL certificate to you apex domain
+Sadly, adding an SSL certificate to our apex domain `yourdomain.com` is disabled in Azure for a reason that is beyond my comprehension. Luckily, there are quite a few SSL certification methods. In this tutorial, we will be using creating a free SSL certificate using [certbot](https://certbot.eff.org/pages/about), an open source tool. These certificates are signed by [Let's Encrypt](https://letsencrypt.org/), a non-profit Certificate Authority who are apparently just interested in making the internet a safer place. To do this, you will need to have access to a Linux machine. On Windows, you can install a Linux Virtual machine using [VMWare](https://www.vmware.com/products/workstation-player.html). I would recommend using [Ubuntu](https://ubuntu.com/download/desktop) as your firmware. 
+
+In your linux system, start a terminal and enter the following commands with the domain of your choice:
+
+```bash
+sudo apt update
+sudo apt install certbot
+sudo certbot certonly -d yourdomain.com --manual --preferred-challenges dns
+```
+
+
+
+![certbot](/static/static-webpage/certbot.png)
+This will install `certbot` and start the certification process for `yourdomain.com`. You will need to answer a few questions. Finally, it asks you to create a new `TXT` record for your domain with a given passphrase to validate your domain (see image). **Do not press enter before we're sure this record is updated!** Go to your DNS provider (godaddy.com, cloudflare.com, Azure DNS) and create a new `TXT` record:
+
+| NAME | TTL | TYPE | VALUE |
+|---|---|---|---|
+| _acme-challenge | 5min | TXT | your_passphrase |
+
+We can use the [MX Toolbox](https://mxtoolbox.com/SuperTool.aspx?action=txt%3ayourdomain&run=toolpage) to perform a `TXT Lookup` and check if our TXT record has indeed been updated. It could take up to 5min for the record to update. If all went well, it should give you the TXT record you just entered with green checkmarks indicating `DNS Record Published`. 
+
+In your terminal, press enter to receive the SSL certificate for `yourdomain.com`, which comprises a private and a public key. To get it into a format Azure understands, we need to merge these files into a `.pfx` file before uploading it to Azure. 
+
+```bash
+sudo openssl pkcs12 -export -out yourdomain.com.pfx -inkey /etc/letsencrypt/live/yourdomain.com/privkey.pem -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem
+```
+
+Back in the Azure Portal, we need to set-up an Azure Key Vault and grant it access to our CDN Endpoint. In the search bar at the top, search for `Key Vault`. 
+
+https://www.xyb.name/2020/07/10/enable-https-and-root-domain-on-azure-cdn/
 
 # Conclusion
 
