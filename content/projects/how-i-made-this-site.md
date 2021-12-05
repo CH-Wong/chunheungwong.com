@@ -18,12 +18,12 @@ For reference, you can find the files I used to build this website on my [Github
 
 
 # Contents
-I will start with showing how you can build a simple website with relative ease with just text files styled in Markdown (.md) using a package called [Hugo](https://gohugo.io/). Afterwards, I will show you how to host these files on [Azure Storage Containers](https://azure.microsoft.com/nl-nl/services/storage/blobs/). I will then guide you through setting up your custom domain-name for your container, as well as adding an SSL certificate for HTTPS, and ultimately delivering your website through the [Azure Content-delivery Network (CDN)](https://azure.microsoft.com/nl-nl/services/cdn/). Lastly, I will walk you through automated deployment of your webpage using Github actions. In short, we will cover:
+I will start with showing how you can build a simple website with relative ease with just text files styled in Markdown (.md) using a package called [Hugo](https://gohugo.io/). Afterwards, I will show you how to host these files on [Azure Storage Blobs](https://azure.microsoft.com/nl-nl/services/storage/blobs/). I will then guide you through setting up your custom domain-name for your blob, as well as adding an SSL certificate for HTTPS, and ultimately delivering your website through the [Azure Content-delivery Network (CDN)](https://azure.microsoft.com/nl-nl/services/cdn/). Lastly, I will walk you through automated deployment of your webpage using Github actions. In short, we will cover:
 
 1. [Creating a static webpage with Hugo](#hugo)
-2. [Setting up Azure Blob/Container](#settingupblob)
+2. [Setting up Azure Blob](#settingupblob)
 3. [Setting up a custom domain](#customdomain)
-4. [Deploying files to an Azure Storage Container](#deployment)
+4. [Deploying files to an Azure Storage Blob](#deployment)
 
 # 1. Creating a static webpage with Hugo {#hugo}
 This website is created using [Hugo](https://gohugo.io/), a standalone package that transforms [Markdown (.md)](https://www.markdownguide.org/basic-syntax/) text files to html/css. Their [Quickstart page](https://gohugo.io/getting-started/quick-start/) is quite self-explanatory, but for the sake of completeness I will post my own learning process here as well.
@@ -123,7 +123,76 @@ You can add an image using this notation:
 
 After saving the file, the server should automatically rebuild the website with your changes. 
 
-## 1.4 Adding a theme
+## 1.4 Archetypes
+Hugo uses so-called `archetypes`, which is just a fancy word for `template`. By adding a `/yourdomain.com/archetypes/default.md` file, anything inside of that file will be added at the top of your new content. Make a `default.md` file 
+
+```md
++++ 
+title = "{{ replace .TranslationBaseName "-" " " | title }}" 
+date = "{{ .Date }}" 
+author = "Me" 
+draft = false
++++
+```
+
+Try running the command below and see for yourself!
+```powershell
+hugo new posts/my-second-post.md
+```
+
+You can make *category-specific* templates by creating new archetypes using the category as the filename (e.g. `posts.md`). This needs to be palced in the folder `/archetypes` your root.
+
+```
+--- yourdomain.com/
+    |   ...
+    |-- archetypes/
+        |-- default.md
+        |-- posts.md
+```
+
+Write some pre-amble, and run the following command to see the results:
+
+```powershell
+hugo new posts/post-with-custom-template.md
+```
+
+## 1.5 Shortcodes
+To do more than just text and images, hugo has added some [shortcodes](https://gohugo.io/content-management/shortcodes/) for frequently used objects. Short code are `html`-like expression which are put between double accolades`{{}}`. To embed a tweet for example you can quite simply add this[^4]
+
+```markdown
+<!-- Insert this expression into double accolades {{}} -->
+<tweet user="SanDiegoZoo" id="1453110110599868418">
+``` 
+where you pass the `username` and `tweet ID` to the shortcode. 
+[^4]: I can't actually show the correct code with {{}}, because my Markdown thinks its a shortcode and will render the shortcode instead! [This link](https://www.getzola.org/documentation/content/shortcodes/#shortcodes-without-body) was the closest I got to a solution, but alas...
+
+
+Personally, I have the need to add mathematical equations. With the help of [Codecogs](https://www.codecogs.com/latex/eqneditor.php) I can convert LaTeX code to images and embed them. I wrote a custom shortcode in `layouts/shortcodes/equation.html`
+
+```html
+{{ if .Get "src" }}
+<image src="https://latex.codecogs.com/gif.latex?{{ .Get "src" | safeURL }}" class="{{ with .Get "position"}}{{ . }}{{ else -}} left {{- end }}" alt="LaTeX Equation" style="border-radius: 2px; background-color:white; padding: 5px">
+</image>
+{{ end }}
+```
+The `{{ .Get "src" | safeURL }}` part essentially puts whatever I put in as the `src` variable into my `https` request to codecogs given that its a safeURL. For example:
+
+```md
+<!-- Insert this expression into double accolades {{}} -->
+`<equation src="f(\phi)=e^{i\phi t}">"`
+```
+{{<equation src="f(\phi)=e^{i\phi t}">}}
+
+```md
+<!-- Insert this expression into double accolades {{}} -->
+`<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">`
+```
+{{<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">}}
+
+I think that's pretty cool! In the next part, we will be checking out how to create an Azure Storage Blob to host our files in.
+
+
+## 1.6 Adding a theme
 To spice up your webpage, we can add pre-built themes. A selection of themes is available on the hugo website https://themes.gohugo.io/. For this page, I used the [terminal theme](https://themes.gohugo.io/themes/hugo-theme-terminal/). 
 
 Let's try to add a different one; the [novela theme](https://themes.gohugo.io/themes/hugo-theme-novela/) for example. Click on the link and press `Download`. You might be just as suprised as I was to find a [GitHub repository](https://github.com/forestryio/hugo-theme-novela)! If you think about it, sharing themes through GitHub is ofcourse a fantastic method have a version-controlled distribution. 
@@ -184,7 +253,6 @@ author = "authors"
 
 Which allows easy set-up for your social accounts.
 
-
 [^1]: **Directly cloning themes (simple)** is the simplest to understand, as you basicaly copy all the files you need into your directory. You can edit the theme files if you need to tweak some parts, and delete them when they are no longer necessary. 
 
 [^2]: **Adding theme as submodule (recommended)** Allows it to be tracked separately from your main git repository. This could be nice for separate version control, whilst still maintaining the ease of editing and creating new files.
@@ -192,9 +260,8 @@ Which allows easy set-up for your social accounts.
 [^3]: **Using Hugo Mods (for cool kids)** for themes allows you to build you website without ever having to pull the directory. This is cool because theres less files in general and seems to simplify selecting versions and other things. However, I think it's quite complicated to make quick edits to the theme, and extra import statements are required later on when we deploy automate the deployment of this website through Github Actions.
 
 
-
-## 1.5 Archetypes
-Most themes will also have so-called `archetypes`, which is just a fancy word for `template`. If you navigate to `/themes/hugo-theme-novela/archetypes` you will find the `default.md` file containing:
+# 1.7 Editing Themes
+`hugo` enables you to edit themes by overriding (part) of them. If you navigate to `/themes/hugo-theme-novela/archetypes` you will find the `default.md` file containing:
 
 ```markdown
 ---
@@ -206,69 +273,30 @@ draft: true
 ---
 ```
 
-This means that every time you create a new content page, this will be added at the top. Try running the command below and see for yourself!
-```powershell
-hugo new posts/my-second-post.md
-```
-
-You can make *category-specific* templates by creating new archetypes using the category as the filename (e.g. `posts.md`). This needs to be palced in the folder `/archetypes` your root.
-
+ If you not happy with this `default.md`, you can override it by adding your own `default.md` theme in your root folder 
 ```
 --- yourdomain.com/
-    |   ...
+    |-- ...
     |-- archetypes/
-        |-- default.md
-        |-- posts.md
+    |   |-- default.md          # This one overrides
+    |-- ...
+    |-- themes
+    |   |-- hugo-theme-novela/
+            |-- archetypes/
+                |-- default.md  # This one
 ```
-Write some pre-amble, and run the following command to see the results:
 
-```powershell
-hugo new posts/post-with-custom-template.md
-```
-
-## 1.6 Shortcodes
-To do more than just text and images, hugo has added some [shortcodes](https://gohugo.io/content-management/shortcodes/) for frequently used objects. Short code are `html`-like expression which are put between double accolades`{{}}`. To embed a tweet for example you can quite simply add this[^4]
-
-```markdown
-<!-- Insert this expression into double accolades {{}} -->
-<tweet user="SanDiegoZoo" id="1453110110599868418">
-``` 
-where you pass the `username` and `tweet ID` to the shortcode. 
-[^4]: I can't actually show the correct code with {{}}, because my Markdown thinks its a shortcode and will render the shortcode instead! [This link](https://www.getzola.org/documentation/content/shortcodes/#shortcodes-without-body) was the closest I got to a solution, but alas...
+The key is that the filename and folder structure must be **identical**. Try creating creating a `default.md` in your `/yourdomain.com/archetypes` folder, and use `hugo new posts/new-archetype-post.md` to check the result.
 
 
-Personally, I have the need to add mathematical equations. With the help of [Codecogs](https://www.codecogs.com/latex/eqneditor.php) I can convert LaTeX code to images and embed them. I wrote a custom shortcode in `layouts/shortcodes/equation.html`
-
-```html
-{{ if .Get "src" }}
-<image src="https://latex.codecogs.com/gif.latex?{{ .Get "src" | safeURL }}" class="{{ with .Get "position"}}{{ . }}{{ else -}} left {{- end }}" alt="LaTeX Equation" style="border-radius: 2px; background-color:white; padding: 5px">
-</image>
-{{ end }}
-```
-The `{{ .Get "src" | safeURL }}` part essentially puts whatever I put in as the `src` variable into my `https` request to codecogs given that its a safeURL. For example:
-
-```md
-<!-- Insert this expression into double accolades {{}} -->
-`<equation src="f(\phi)=e^{i\phi t}">"`
-```
-{{<equation src="f(\phi)=e^{i\phi t}">}}
-
-```md
-<!-- Insert this expression into double accolades {{}} -->
-`<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">`
-```
-{{<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">}}
-
-I think that's pretty cool! In the next part, we will be checking out how to create an Azure Storage Container to host our files in.
-
-# 2. Creating an Azure Storage Container {#settingupblob}
+# 2. Creating an Azure Storage Blob {#settingupblob}
 ## 2.1 Creating a storage account
 Creating an Azure Storage account
-Now that we have some content we want to publish online, we need a place to put it. In this tutorial we will be making use of MSFT Azure because that's the only one I've tried so far. Naturally, similar services are available on AWS and Google Cloud. To make an Azure Container, you first need to **make an Azure account** at [https://portal.azure.com](https://portal.azure.com).
+Now that we have some content we want to publish online, we need a place to put it. In this tutorial we will be making use of MSFT Azure because that's the only one I've tried so far. Naturally, similar services are available on AWS and Google Cloud. To make an Azure Blob, you first need to **make an Azure account** at [https://portal.azure.com](https://portal.azure.com).
 
-![Create Container](/static/static-webpage/create_storage.png)
+![Create Blob](/static/static-webpage/create_storage.png)
 
-We can now create our storage container: 
+We can now create our storage blob: 
 - Click `Storage Accounts`
 - Click `+ Create`. 
 
@@ -294,11 +322,11 @@ Press `Next: Advanced` to continue.
 
 The first thing we need to do to set up our blob is to enable it for use as a static webpage. 
 1. From the Azure Portal, click on storage accounts.
-2. Select your storage container from the list (e.g. `chunportfoliowebpage`)
+2. Select your storage blob from the list (e.g. `chunportfoliowebpage`)
 3. In the left menu, under `Data management`, click on `Static website`.
 4. Toggle Static website to `Enabled`.
 
-This will show you your `Primary endpoint`, a webaddress you and others can use to access the files in your container that will make up your webpage later. 
+This will show you your `Primary endpoint`, a webaddress you and others can use to access the files in your blob that will make up your webpage later. 
 
 5. Set `Index document name` to `index.html`.
 6. Set `Error document path` to `404.html`.
@@ -308,15 +336,15 @@ The last two settings make sure that Azure knows how to route our webpage. Now t
 ![Storage Details](/static/static-webpage/create_blob.png)
 
 - Under `Data storage`, select `Containers`.
-- Create a container by clicking the `+ Container` button. 
-- Name the container `$web`.
+- Create a blob by clicking the `+ Container` button. 
+- Name the blob `$web`.
 - Set the `Public access level` to `Blob (anonymous read access for blobs only)`. 
     - To be honest, I am not completely sure what the difference is, but [this reference](https://www.serverless360.com/blog/azure-blob-storage-vs-file-storage) suggests that blobs are more suitable for our purposes.
 
-You now have your container called `$web`! You can access any files you upload here using the container's URL. You can find the container's URL by clicking on the `$web` container, and accessing its `Properties` under `Settings` on the left. It should look something like `https://yourstoragecontainer.blob.core.windows.net/$web`. If you got there in your browser, you will most likely encounter an error; we haven't uploaded any files yet! If you want to try, you can upload a file using the `Upload` of the `$web` container. If you upload a text file, e.g. `test.txt`, you can access it using the URL `https://yourstoragecontainer.blob.core.windows.net/$web/test.txt`. That's essentially how our webpage is going to work!
+You now have your blob called `$web`! You can access any files you upload here using the blob's URL. You can find the blob's URL by clicking on the `$web` blob, and accessing its `Properties` under `Settings` on the left. It should look something like `https://yourstorageblob.blob.core.windows.net/$web`. If you got there in your browser, you will most likely encounter an error; we haven't uploaded any files yet! If you want to try, you can upload a file using the `Upload` of the `$web` blob. If you upload a text file, e.g. `test.txt`, you can access it using the URL `https://yourstorageblob.blob.core.windows.net/$web/test.txt`. That's essentially how our webpage is going to work!
 
 ## 2.3 Setting up Content Delivery Network (CDN)
-Having external users directly access your storage container using `https://yourstoragecontainer.blob.core.windows.net/$web/test.txt` can be quite slow, depending on the location of the requester. Conveniently, Azure has its own [Content-delivery Network (CDN)](https://www.akamai.com/our-thinking/cdn/what-is-a-cdn)) which we can quite easily connect to our storage container. This is essentially a bunch of geographically separeted servers that cache our webpage to make it possible to load it faster and increase reliability. 
+Having external users directly access your storage blob using `https://yourstorageblob.blob.core.windows.net/$web/test.txt` can be quite slow, depending on the location of the requester. Conveniently, Azure has its own [Content-delivery Network (CDN)](https://www.akamai.com/our-thinking/cdn/what-is-a-cdn)) which we can quite easily connect to our storage blob. This is essentially a bunch of geographically separeted servers that cache our webpage to make it possible to load it faster and increase reliability. 
 
 To use the Azure CDN, we need to create a so-called endpoint. This is essentially another URL you can use to access your files, but this time they will be delivered through the CDN. To create an endpoint, navigate to `Azure CDN` under `Security + networking`. 
 
@@ -330,17 +358,17 @@ Under `New endpoint`, fill in
 
 It might take a few moments for the CDN endpoint to be created. After its created, you can click on it to see its the `Endpoint hostname`: `https://yourendopoint.azureedge.net`. If you made a test.txt file, you can now also find it with `https://yourendopoint.azureedge.net/test.txt`!
 
-# 3 Deploying files to an Azure Storage Container {#deployment}
-Now that we have easy access to our container through the CDN, we are now ready to upload our website to it! First we need to convert our `hugo` files into the actual `html/css` website. Navigate to the directory of your website and simply enter:
+# 3 Deploying files to an Azure Storage Blob {#deployment}
+Now that we have easy access to our blob through the CDN, we are now ready to upload our website to it! First we need to convert our `hugo` files into the actual `html/css` website. Navigate to the directory of your website and simply enter:
 
 ```powershell
 cd "C:\Hugo\Sites\yourdomain.com
 hugo
 ```
-Yes. Just `hugo`. You will now find that a `/public/` folder was added to your files. This is our website! We want to upload this folder to our Azure container. There are many ways to do this. For example:
+Yes. Just `hugo`. You will now find that a `/public/` folder was added to your files. This is our website! We want to upload this folder to our Azure blob. There are many ways to do this. For example:
 
-1. You can manually upload them using the Azure portal by clicking the `upload` button in your `$web` container.
-2. Within the [Virtual Studio Code (VSCode)](https://code.visualstudio.com/) IDE, you can install add-on called [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage) that connects to your `$web` container and uploads it for you. 
+1. You can manually upload them using the Azure portal by clicking the `upload` button in your `$web` blob.
+2. Within the [Virtual Studio Code (VSCode)](https://code.visualstudio.com/) IDE, you can install add-on called [Azure Storage](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestorage) that connects to your `$web` blob and uploads it for you. 
 3. You can automatically build and deploy your website through GitHub.
 
 Personally, I wanted to try using Github actions for the first time, as I have never tried automated deployment. Have to start with [CI/CD](https://www.redhat.com/en/topics/devops/what-is-ci-cd) somewhere right? I'll try to show you what I've learned so far.
@@ -350,8 +378,8 @@ What we are trying to achieve is to use Github not only for version control, but
 
 1. Create an environment to perform the build.
 2. Use our `hugo` files to build our website.
-2. Connect and authenticate with our Azure container.
-3. Update the Azure container to match our updated webpage.
+2. Connect and authenticate with our Azure blob.
+3. Update the Azure blob to match our updated webpage.
 
 and do that every time we execute a simple `git push` to the `main` branch! First things first, let's get our `C:/Hugo/Sites/yourdomain.com` directory on Github. Create a new repository on github called `yourdomain.com`, where obviously you fill in the name of your own domain. This repository **needs to be public**, because Github actions are only available for public (or Enterprise) repositories. 
 
@@ -438,7 +466,7 @@ Now that we have our set of commands, all that is left is to actually run the wo
 
 ![Github Environment Secrets](/static/static-webpage/github-environment.png)
 
-We need to add this connection string to our GitHub repository. In your browser, go to your GitHub repository and lcoate the Settings. Under `Environments`, we are going to create a `New environment`, named `build-environment`[^6]. Here, press the `+ Add Secret` button. Name it `BLOB_STORAGE_CONNECTION_STRING`[^5] and copy-paste the connection string we obtain from the Azure portal in the `Value` field. That's it!  
+We need to add this connection string to our GitHub repository. In your browser, go to your GitHub repository and lcoate the Settings. Under `Environments`, we are going to create a `New environment`, named `build-environment`[^6]. Here, press the `+ Add Secret` button. Name it `BLOB_STORAGE_CONNECTION_STRING`[^6] and copy-paste the connection string we obtain from the Azure portal in the `Value` field. That's it!  
 
 [^6]: These names are taken from the `main.yaml` file above! If you want to use different names, make sure to change them in your `main.yaml` as well.
 
@@ -452,7 +480,7 @@ git commit -m "First deployment!"
 git push
 ```
 
-and watch the magic happen in the `Actions` tab of your GitHub page! After the build has been completed, you should also see that files have been added to the `$web` container in your Azure Portal. But most importantly, your website should now be accessible on your custom domain! Open your browser and go to `www.yourdomain.com` to see the result.
+and watch the magic happen in the `Actions` tab of your GitHub page! After the build has been completed, you should also see that files have been added to the `$web` blob in your Azure Portal. But most importantly, your website should now be accessible on your custom domain! Open your browser and go to `www.yourdomain.com` to see the result.
 It could take some time for the content to be updated in the CDN (maybe an hour).
 
 # 4. Setting up a custom domain on Azure CDN {#customdomain}
@@ -465,7 +493,7 @@ To add a custom domain, we have to edit your DNS settings accordingly. At your n
 |---|---|---|---|
 | www | 5min | CNAME | yourendpoint.azureedge.net |
 
-This points the subdomain `www.yourdomain.com` to the CDN network connected with your storage container. Thats it! We need to wait for your DNS provider to push your changes to the registrar, and for the changes to propagate through the network. After these changes have been pushed through, we can add your custom domain to your CDN endpoint on Azure.
+This points the subdomain `www.yourdomain.com` to the CDN network connected with your storage blob. Thats it! We need to wait for your DNS provider to push your changes to the registrar, and for the changes to propagate through the network. After these changes have been pushed through, we can add your custom domain to your CDN endpoint on Azure.
 
 - Go to your CDN endpoint in the Azure Portal (`Security + networking` -> `Azure CDN` -> `Endpoints`) 
 - Click on your CDN endpoint in the list. 
@@ -477,14 +505,24 @@ If this does not work, the DNS setting may require a bit more time to propagate.
 ## 3.1 Setting up SSL certificate for HTTPS
 Adding a SSL certificate to your custom subdomain is very simple! Simply click on the custom domain you just added to your CDN endpoint, and toggle `Custom domain HTTPS` to `On` and press `Save`. That's it. Verifying the domain can take quite some time, so hang tight! With that, everything is set-up to use `www.yourdomain.com` to host our website in! 
 
-## 3.2 Linking your apex domain to the CDN
+## 3.2 Using Redirect Engine to Enforce HTTPS
+
+![enforce https](/static/static-webpage/enforce-https.png)
+
+Now that we have an SSL certificate for `www.yourdomain.com` we want all HTTP traffic to use HTTPS instead. This can be easily implemented by your CDN endpoint's `Redirect engine`, which you can find under `Settings`. 
+- Click `+ Add rule`.
+- `+ Add condition`: `If Request protocol` `Equals` `HTTP`
+- `+ Add action`: `Permanent redirect (308)` `HTTPS` and leave the rest open
+- Press `Save`
+
+## 3.3 Linking your apex domain to the CDN
 *Now the hard part.* Apparently connecting a subdomain (e.g. `www.yourdomain.com`) to your CDN endpoint is significantly easier to do as opposed to adding your root or apex domain (e.g. yourdomain.com)[^apexdomains]. Especially if you want to add an SSL certificate for HTTPS access. The sad part is obviously that nobody ever uses the `www.` prefix anymore, and `yourdomain.com` will in this case lead them to an error page. 
 
 [^apexdomains]: Here is a [GitHub Issue](https://github.com/MicrosoftDocs/azure-docs/issues/63977) from 2020 pointing this out.
 
-I've tried a number of options[^5], but found that a combination of (temporarily) using Azure DNS and creating my own SSL certificate using `certbot` was, sadly, the easiest way. Let's start with adding the apex/root domain `yourdomain.com` to our CDN endpoint. In principle, the Azure documentation, as well as several tutorials on the web, state that adding the following records to your DNS settings should do the trick
+I've tried a number of options[^otheroptions], but found that a combination of (temporarily) using Azure DNS and creating my own SSL certificate using `certbot` was, sadly, the easiest way. Let's start with adding the apex/root domain `yourdomain.com` to our CDN endpoint. In principle, the Azure documentation, as well as several tutorials on the web, state that adding the following records to your DNS settings should do the trick
 
-[^5]: I've tried creating ALIAS or ANAME records to point towards my CDN Endpoint, as well as to `www.chunheungwong.com`, both of which did not resolve the hostname correctly. I've tried using the Redirect Engine in the Azure CDN settings to redirect traffic from `yourdomain.com` to `www.yourdomain.com`, but even though [Redirect Checker](https://www.redirect-checker.org/) and [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx) said I was properly configured, I could not connect to my static website. There are paid services that integrate with Azure which provided automatically renewed certificates directly from the Azure Portal. However, at ~€15,-/month the certificate would be almost 150-1500x more expensive than the hosting the website itself. 
+[^otheroptions]: I've tried creating ALIAS or ANAME records to point towards my CDN Endpoint, as well as to `www.chunheungwong.com`, both of which did not resolve the hostname correctly. I tried adding the IP address of my [CDN endpoint as an A Record](https://www.xyb.name/2020/07/10/enable-https-and-root-domain-on-azure-cdn/). I've tried using the Redirect Engine in the Azure CDN settings to [redirect traffic](https://docs.microsoft.com/en-us/answers/questions/34737/how-to-point-your-dns-zone-apex-root-naked-domain.html) from `yourdomain.com` to `www.yourdomain.com`, but even though [Redirect Checker](https://www.redirect-checker.org/) and [DNS Lookup tool](https://mxtoolbox.com/DNSLookup.aspx) said I was properly configured, I could not connect to my static website. There are paid services that integrate with Azure which provided automatically renewed certificates directly from the Azure Portal. However, at ~€15,-/month the certificate would be almost 150-1500x more expensive than the hosting the website itself. 
 
 | NAME | TTL | TYPE | VALUE |
 |---|---|---|---|
@@ -495,9 +533,12 @@ These records essentially tell your DNS to point `yourdomain.com` to `yourcdnend
 
 ![DNS zone](/static/static-webpage/dnszone.png)
 
-To solve this issue, I found that I was forced to use Azure's DNS services. Don't worry, we can delete them after and go back to the DNS provider of our choice! In your Azure Portal, search for `DNS zones`, and press `+ Create`. Select the resource group you placed your Storage Containers in, and fill in `yourdomain.com` and create the DNS zone. 
+To solve this issue, I found that I was forced to use Azure's DNS services[^azuredns]. Don't worry, we can delete them after and go back to the DNS provider of our choice! In your Azure Portal, search for `DNS zones`, and press `+ Create`. Select the resource group you placed your Storage blobs in, and fill in `yourdomain.com` and create the DNS zone. 
+
+[^azuredns]: I tried a whole host of different settings. [Adding the Endpoint IP as an A-name record](https://www.xyb.name/2020/07/10/enable-https-and-root-domain-on-azure-cdn/), [Using the ]
 
 ![DNS record](/static/static-webpage/dnsrecord.png)
+
 At your Azure Portal homescreen you will now find your DNS zone `yourdomain.com`. When you click on it, you will be greeted with the familiar table of DNS records. 
 - Click the `+ Record set` button at the top. 
 - Select `A - Alias record to IPv4 address` type.
@@ -507,6 +548,7 @@ At your Azure Portal homescreen you will now find your DNS zone `yourdomain.com`
 - Press `OK`.
 
 ![DNS record](/static/static-webpage/cnamerecord.png)
+
 For the second record we need to add a CNAME record use for verification by Azure
 - Click the `+ Record set` button at the top. 
 - Select `CNAME ...` type.
@@ -521,8 +563,8 @@ With this finished, we can finally add our apex domain to our CDN endpoint. Navi
 
 After this is finished, you can go ahead and delete the Azure DNS zone. Just don't forget to reset the nameservers of your domain at your DNS provider! If you want to continue to use the Azure DNS Zone, copy the existing DNS records from your original DNS provider. You should now be able to access your website using `http://yourdomain.com`
 
-# 3.3 Adding a custom SSL certificate to you apex domain
-Sadly, adding an SSL certificate to our apex domain `yourdomain.com` is disabled in Azure for a reason that is beyond my comprehension. Luckily, there are quite a few SSL certification methods. In this tutorial, we will be using creating a free SSL certificate using [certbot](https://certbot.eff.org/pages/about), an open source tool. These certificates are signed by [Let's Encrypt](https://letsencrypt.org/), a non-profit Certificate Authority who are apparently just interested in making the internet a safer place. To do this, you will need to have access to a Linux machine. On Windows, you can install a Linux Virtual machine using [VMWare](https://www.vmware.com/products/workstation-player.html). I would recommend using [Ubuntu](https://ubuntu.com/download/desktop) as your firmware. 
+## 3.4 Adding a custom SSL certificate to you apex domain
+Sadly, adding an SSL certificate to our apex domain `yourdomain.com` in Azure is disabled for a reason that is beyond my comprehension. Luckily, there are quite a few SSL certification methods. In this tutorial, we will be using creating a free SSL certificate using [certbot](https://certbot.eff.org/pages/about), an open source tool. These certificates are signed by [Let's Encrypt](https://letsencrypt.org/), a non-profit Certificate Authority who are apparently just interested in making the internet a safer place. To do this, you will need to have access to a Linux machine. On Windows, you can install a Linux Virtual machine using [VMWare](https://www.vmware.com/products/workstation-player.html). I would recommend using [Ubuntu](https://ubuntu.com/download/desktop) as your firmware. 
 
 In your linux system, start a terminal and enter the following commands with the domain of your choice:
 
@@ -532,9 +574,8 @@ sudo apt install certbot
 sudo certbot certonly -d yourdomain.com --manual --preferred-challenges dns
 ```
 
-
-
 ![certbot](/static/static-webpage/certbot.png)
+
 This will install `certbot` and start the certification process for `yourdomain.com`. You will need to answer a few questions. Finally, it asks you to create a new `TXT` record for your domain with a given passphrase to validate your domain (see image). **Do not press enter before we're sure this record is updated!** Go to your DNS provider (godaddy.com, cloudflare.com, Azure DNS) and create a new `TXT` record:
 
 | NAME | TTL | TYPE | VALUE |
@@ -549,9 +590,74 @@ In your terminal, press enter to receive the SSL certificate for `yourdomain.com
 sudo openssl pkcs12 -export -out yourdomain.com.pfx -inkey /etc/letsencrypt/live/yourdomain.com/privkey.pem -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem
 ```
 
-Back in the Azure Portal, we need to set-up an Azure Key Vault and grant it access to our CDN Endpoint. In the search bar at the top, search for `Key Vault`. 
+Seeing as you are exporting your certificate, you are asked to create a password. You will need to use this password again when we import this certificate in Azure later. 
 
-https://www.xyb.name/2020/07/10/enable-https-and-root-domain-on-azure-cdn/
+If you are using a VM, you can simply drag + drop the file from your VM to your main computer. You might need to change the ownership of the file to do this, as the certificate was made by `root`
+
+```bash 
+sudo chown <yourusername>:<yourusername> yourdomain.com.pfx
+```
+
+![register app](/static/static-webpage/azurepowershell.png)
+
+Back at the Azure Portal, we need to [Register Azure CDN](https://docs.microsoft.com/en-us/azure/cdn/cdn-custom-ssl?tabs=option-2-enable-https-with-your-own-certificate) as an app in your Azure Active Directory. Find the `Cloud Shell` button in the top bar, and make sure your are using `PowerShell` (see image). Once the terminal is loaded up, type in 
+
+```powershell
+New-AzADServicePrincipal -ApplicationId "205478c0-bd83-4e1b-a9d6-db63a3e1e1c8"
+```
+
+The seemingly random garble at `ApplicationID` is apparently the unique identifier for the CDN. You can close the terminal after this.
+
+![create key vault](/static/static-webpage/keyvault.png)
+
+Next, we need to set-up an Azure Key Vault and grant it access to our CDN Endpoint. This way, our CDN endpoint can use certificates we store in the vault. 
+- In the search bar at the top, search for `Key Vault`. 
+- Press the `+ Create` button to create a new vault. 
+- Choose the `Resource group` which contains your static website. 
+- Fill in a recognizable name for you keyvault (e.g. `sslcertificates`). 
+- Choose a region close to you, and press `Next: Access policy` 
+
+![access policy](/static/static-webpage/access-policy-settings.png)
+
+Here, we need to give the correct persmissions to our CDN. 
+- In `Secret permissions` check `Get` and `List`. 
+- In `Certificate permissions` check `Get` and `List`. 
+- In `Select principal`, search for `microsoft.azure` and select `Microsoft.AzureFrontDoor-Cdn`. This name seems to change, so just select the one containing `cdn`.
+- Click `Add` and finish up the Key Vault creation.
+
+![add certificate](/static/static-webpage/certificates.png)
+
+Navigate to your newly created Key Vault, and look for `Certificates` under `Settings`. 
+- Click on `+ Generate/Import`.
+- Set `Method of Certificate Creation` to `Import`.
+- Make a recognizable `Certificate Name` (e.g. `yourdomainssl`)
+- Upload your `yourdomain.pfx` file.
+- Press `Create`.
+
+![custom certificate](/static/static-webpage/customcertificate.png)
+
+With our certificate and access rights in place, go to your CDN endpoint and click on the apex domain `yourdomain.com` you added. 
+- Toggle `Custom domain HTTPS` to `On`
+- Select `Use my own certificate` under `Certificate management type`
+- Select the `Key Vault` you just made
+- Select the SSL certificate you just added
+- Set the `Certificate/Secret version` to latest
+- Press `Save`.
+
+After waiting for the HTTPS certificate to validated, your website will be available at `https://yourdomain.com`! 
+
+# 3.5 Redirect traffic from www to apex domain 
+
+![Redirect WWW](/static/static-webpage/redirectwww.png)
+
+Now that we have both `www.yourdomain.com` and `yourdomain.com` set-up to access our CDN endpoint, we can redirect all traffic to your apex domain to prevent any potential link-breaking. Go to the `Rules engine` under your the `Settings` in your CDN Endpoint. 
+
+- Press `+ Add rule` and create a rule named `RedirectWWW`. 
+- `+ Add condition`: `Request URL` `Begins with` `https://www.yourdomain.com` `No transform`.
+- `+ Add action`: `URL Redirect` `Permanent redirect (308)` `HTTPS` `yourdomain.com` and leave the rest empty.
+- Press `Save`.
+
+Use the [Redirect Checker](https://www.redirect-checker.org/) to see if this was properly set-up. Done!
 
 # Conclusion
 
