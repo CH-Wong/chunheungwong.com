@@ -12,7 +12,7 @@ readingTime = true
 draft = false
 +++
 
-This is a complete guide on how I made this website. What makes this webpage "special", is that it's a [static webpage](https://www.sanity.io/what-is-a-static-site). No server needed, no fancy routing needed, just some static files hosted on a filehosting service. This tutorial is aimed meant for people who have never made a static webpage before, because that was me before I made this post. 
+This is a complete guide on how I made this website. What makes this webpage "special", is that it's a [static webpage](https://www.sanity.io/what-is-a-static-site). No server needed, no fancy routing needed, just some static files hosted on a filehosting service. This tutorial is meant for people who have never made a static webpage before, because that was me before I made this post. 
 
 For reference, you can find the files I used to build this website on my [Github Page](https://github.com/CH-Wong/chunheungwong.com). 
 
