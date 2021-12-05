@@ -1,7 +1,7 @@
 +++ 
 title = "{{ replace .TranslationBaseName "-" " " | title }}" 
 date = "{{ .Date }}" 
-author = "Chun Heung Wong" 
+author = "Chun Heung Wong"
 cover = "" 
 tags = ["", ""] 
 keywords = ["", ""] 

@@ -1,8 +1,11 @@
-baseURL = 'https://www.chunheungwong.com'
+baseURL = 'https://chunheungwong.com'
 languageCode = 'en-us'
-title = "Chun's Website"
+title = "chunheungwong.com"
 theme = 'terminal'
 paginate = 5
+
+# Used to generate last modified date from git commits
+enableGitInfo = true
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -31,7 +34,7 @@ paginate = 5
 
   # set post to show the last updated
   # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
-  showLastUpdated = false
+  showLastUpdated = true
 
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
@@ -55,7 +58,7 @@ paginate = 5
   [languages.en]
     languageName = "English"
     title = "Home"
-    subtitle = "A simple webpage for things I find interesting."
+    subtitle = "A simple website for things I find interesting."
     owner = "Chun Heung Wong"
     keywords = ["portfolio", "personal"]
     copyright = "MIT License"
@@ -68,32 +71,32 @@ paginate = 5
     missingBackButtonLabel = "Back to homepage"
 
     [languages.en.params.logo]
-      logoText = "Chun's Webpage"
-      logoHomeLink = "/"
+      logoText = "chunheungwong.com"
+      logoHomeLink = "/home/homepage"
 
     [[languages.en.menu.main]]
-        identifier = "posts"
-        name = "Posts"
-        url = "/posts"
+        identifier = "home"
+        name = "home"
+        url = "/home/homepage"
         weight = 1
 
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "projects"
-        name = "Projects"
+        name = "projects"
         url = "/projects"
         weight = 2
 
       [[languages.en.menu.main]]
         identifier = "music"
-        name = "Music"
+        name = "music"
         url = "/music"
         weight = 3
 
       [[languages.en.menu.main]]
         identifier = "about"
-        name = "About me"
-        url = "/about"
+        name = "about me"
+        url = "/about/cv"
         weight = 4 
 
 
