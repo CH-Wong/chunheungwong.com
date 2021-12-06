@@ -10,7 +10,7 @@ enableGitInfo = true
 [params]
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "posts"
+  contentTypeName = "home"
 
   # ["orange", "blue", "red", "green", "pink"]
   themeColor = "orange"
@@ -72,12 +72,12 @@ enableGitInfo = true
 
     [languages.en.params.logo]
       logoText = "chunheungwong.com"
-      logoHomeLink = "/home/homepage"
+      logoHomeLink = "/home"
 
     [[languages.en.menu.main]]
         identifier = "home"
         name = "home"
-        url = "/home/homepage"
+        url = "/home"
         weight = 1
 
     [languages.en.menu]

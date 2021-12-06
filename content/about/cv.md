@@ -10,36 +10,40 @@ readingTime = false
 > I am a physicist and engineer who is easily distracted due to an obsession for learning new things. I enjoy solving complex challenges that require cross-boundary, creative thinking. My passions include musical composition, high-effort home-cooking and competitive video-games.
 
 # Experience
-- **R&D Project Leader** - [Delft Circuits](https://delft-circuits.com/) (2019 - Present)
-    - *Delft Circuits develops disruptive microwave cabling technologies for the quantum industry.*
-    - Designed and prototyped Delft Circuits' Cri/oFlex® Product Series.
-    - Scaled up lithographic production capabilities and throughput, including multilayer circuit processing on-flex.
-    - Project leader of Primary Field Lab program, in which Cri/oFlex® prototypes were deployed, tested and validated in customer's production-level systems.
-    - Set-up groundwork for ERP/CRM system based on Odoo.
-    - Contributed to €2M EIC Accelerator grant proposal (granted March 2019).
+**R&D Project Leader** - [Delft Circuits](https://delft-circuits.com/) (2019 - Present)
 
-- **Founder & CTO (part-time)** - [Elephants in the Room](https://elephantsintheroom.co/) (Jan 2021 - Present)
-    - *Elephants in the Room is a start-up developing human interaction models and applications.*
-    - Contributing to strategic technical roadmap.
-    - Developing Human Interaction models (awaiting validation).
+*Delft Circuits develops disruptive microwave cabling technologies for the quantum industry.*
+- Contributed to design, prototyping and testing of Delft Circuits' Cri/oFlex® Product Series.
+- Scaled up lithographic production capabilities and throughput, including multilayer circuit processing on-flex.
+- Project leader of Primary Field Lab program, in which Cri/oFlex® functional requirement were established, and prototypes were deployed, tested and validated in customer's production-level systems.
+- Set-up groundwork for ERP/CRM system based on Odoo.
+- Developed Python-based data plotting and analysis software with integrated quality control routines.
+- Contributed to €2M EIC Accelerator grant proposal (granted March 2019).
 
-- **Assistant Physics Tutor (part-time)** - [SSL](https://www.sslleiden.nl/) (Apr 2014 - Jul 2018)
-    - *SSL is a teaching foundation specialized in national exam preparation.*
-    - Taught over 300 students.
-    - Learned and developed didactic methods focussed on boosting student self-confidence.
+**Founder & CTO (part-time)** - [Elephants in the Room](https://elephantsintheroom.co/) (Jan 2021 - Present)
 
-- **Intern Restructing Standard Operating Procedures** - [The EuroTech Group Plc](https://www.eurotech-group.co.uk/eurotech/) (Jul 2013 - Aug 2013)
-    - Restructured and updated standard operation procedures for two production lines in the PCB manufacturing process.
+*Elephants in the Room is a start-up developing human interaction models and applications.*
+- Contributing to strategic technical roadmap.
+- Developing Human Interaction models (awaiting validation).
+
+**Assistant Physics Tutor (part-time)** - [SSL](https://www.sslleiden.nl/) (Apr 2014 - Jul 2018)
+
+*SSL is a teaching foundation specialized in national exam preparation.*
+- Taught over 300 students.
+- Learned and developed didactic methods focussed on boosting student self-confidence.
+
+**Intern Restructing Standard Operating Procedures** - [The EuroTech Group Plc](https://www.eurotech-group.co.uk/eurotech/) (Jul 2013 - Aug 2013)
+- Restructured and updated standard operation procedures for two production lines in the PCB manufacturing process.
 
 # Education
 **MBA**, Quantic School of Business and Technology (2019 - 2020)
 - 92% Final Exam score
 
-**MSc. of Science Applied Physics** (cum laude), Delft University of Technology (2016 - 2018)
+**MSc. Applied Physics** (cum laude), Delft University of Technology (2016 - 2018)
 - Thesis: [Detection of Post-translational Modifications with Biological Nanopores](/projects/post-translational-modifications)
 - Publication: [Label-Free Detection of Post-translational Modifications with a Nanopore](https://pubs.acs.org/doi/10.1021/acs.nanolett.9b03134)
 
-**BSc. of Science Applied Physics**, Delft University of Technology (2013 - 2016)
+**BSc. Applied Physics**, Delft University of Technology (2013 - 2016)
 - Thesis: Smart surface for electrochemically controlled reversible adsorption of lipid vesicles
 - Minor Applied Physics at KTH Royal Institute of Technology in Stockholm.
     - Studied minimalization problems, flight dynamics and biophysics.
@@ -57,7 +61,6 @@ readingTime = false
     - Honorary mention in *Drawing* and *Classical Music*.
 - Member of school-band and musical group.
 
-
 # Languages
 - Dutch (native)
 - Cantonese (native)
@@ -73,4 +76,4 @@ readingTime = false
 - Autodesk Fusion 3D modelling, 3D Printing
 - Adobe Illustrator + Photoshop
 - Piano (Pre-conservatory)
-- Master Rank in Starcraft II  (top 5% Europe)
+- Master Rank in Starcraft II (top 5% Europe)

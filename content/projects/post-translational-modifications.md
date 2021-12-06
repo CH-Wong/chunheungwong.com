@@ -13,7 +13,7 @@ draft = false
 
 For the final part of my MSc. degree in Applied Physics, I had the pleasure to join the conjoint work between the [Chirlmin Joo Lab](https://www.chirlmin.org/) and [Cees Dekker Lab](https://ceesdekkerlab.nl/). During my 1-year project, I got to experience single-molecule biophysics; a field I had been interested in for a long time.
 
-The main topic of my research was nano-pore sensing. This measurement method uses nanometer sized pores (or nanopores) to study protein structure by measuring the blockade current due to the protein passing through the pore as a result of the bias voltage (see cover image). 
+The main topic of my research was single-molecule biophysics. Specifically, we tried to characterize individual proteins using nanopores. This measurement method uses nanometer sized pores (or nanopores) to study protein structure by measuring the blockade current due to the protein passing through the pore as a result of the bias voltage (see cover image). Here is a review paper on [single-molecule protein sequencing](https://www.nature.com/articles/s41565-018-0236-6) by my supervisor Laura.
 
 ![3peptides](/static/3types.png)
 
