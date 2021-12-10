@@ -308,10 +308,10 @@ We now need to create a Storage Account:
 - Select a location (I usually put it somewhere close e.g. `(Europe) Germany West Central`).
 - Performance `Standard` (Premium is very overkill).
 - Account kind: `BlobStorage` (That's the cheapest one!).
-- Replication: `Locally Redundant Storage (LRS)` 
+- Replication: `Geo Redundant Storage (GRS)` 
     - "*... 99.999999999% (11 nines) durability of objects over a given year.*" [read more](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy)
 - Press `Next: Advanced` to continue. 
-- Under `Blob storage`, select `Cool: Infrequently accessed data and backup scenarios` unless you are planning on having 1000's of visitors a day.
+- Under `Blob storage`, select `Hot` (no costs per GB loaded).
 - Press `Review + create` to finish up the process
 
 ## 2.2 Setting up the storage account
