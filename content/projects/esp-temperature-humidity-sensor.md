@@ -13,12 +13,23 @@ draft = false
 
 [Github Page](https://github.com/CH-Wong/esp8266-temp-hum-sensor)
 
-Arduino in VSCode?
-https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino
-How to add ESP8266 board manager?
+# Hard-ware
+
+## Shopping list
+- NodeMCU ESP8266
+- DHT-11 Temperature & Humidity sensor
+- 10kOhm resistor
+- 0.96inch OLED display (Optional)
+
+
+# Wiring Scheme
+![Wiring scheme](/static/esp/esp8266-pin-out.png)
+*ESP8266 diagram from https://esp8266-shop.com/*
+
+
+
 
 # Dependencies
-
 To compile your software for the ESP8266, you need the so-called board-manager for ESPs. You can add this URL `https://arduino.esp8266.com/stable/package_esp8266com_index.json` in your Arduino IDE under `File` -> `Preferences` -> `Additional Boards Manager URLs`.
 
 Go to Tools > Board > Board Manager and search for 'esp8266'.
@@ -28,11 +39,7 @@ https://github.com/esp8266/Arduino
 
 (You can add multiple URLs, separating them with commas.)
 
-
-
-
 https://arduino.stackexchange.com/questions/38531/how-to-manage-dependencies
-
 
 ADAfruit SSD1306 for screen
 DHT sensor library for DHT 11
@@ -346,8 +353,6 @@ String formatBytes(size_t bytes){
   }
 }
 ```
-
-
 
 # Authentication for filebrowser
 https://www.mischianti.org/2020/11/09/web-server-with-esp8266-and-esp32-manage-security-and-authentication-4/
