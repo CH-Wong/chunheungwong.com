@@ -11,43 +11,52 @@ readingTime = false
 draft = false
 +++
 
-[Github Page](https://github.com/CH-Wong/esp8266-temp-hum-sensor)
+This page contains a summary of what I have learned whilst trying to build a web-hosted temperature/humidity sensor module using the [ESP8266 WiFi microcontroller](https://en.wikipedia.org/wiki/ESP8266). At the end of the project, you will end up with a WiFi-controllable Temperature & Humidity sensor, updatable over WiFi, with a webserver hosting your data on your local network using ChartJS. This is all wrapped up in a 3D printed housing model to it to finish it all up. 
 
-# Hard-ware
+The code used in this project can be found on my [Github Page](https://github.com/CH-Wong/esp8266-temp-hum-sensor) here. 
 
-## Shopping list
+# Hard-ware + Wiring scheme
+
+For this project I used:
+
 - NodeMCU ESP8266
 - DHT-11 Temperature & Humidity sensor
 - 10kOhm resistor
 - 0.96inch OLED display (Optional)
 
+These parts come for less than €5,- a piece these days, making the entry-barrier for these kinds of projects very low. Most of these can be bought from https://aliexpress.com or https://amazon.com. Due to the rapid supplier turnover, I will refrain from adding links for the individual components. 
 
-# Wiring Scheme
+## The ESP8266
+
+## Wiring Scheme
 ![Wiring scheme](/static/esp/esp8266-pin-out.png)
 *ESP8266 diagram from https://esp8266-shop.com/*
 
+For testing, I used a breadboard and some DuPont jumper cables to connect setup. 
 
 
+# Arduino Code 
+## Installing Dependencies
+To compile your software for the ESP8266, you need the so-called **board-manager for ESP**[^esp-install]. You can add this URL `https://arduino.esp8266.com/stable/package_esp8266com_index.json` in your Arduino IDE under `File` -> `Preferences` -> `Additional Boards Manager URLs`. Go to `Tools` > `Board` > `Board Manager` and search for "esp8266". (You can add multiple URLs, separating them with commas.)
 
-# Dependencies
-To compile your software for the ESP8266, you need the so-called board-manager for ESPs. You can add this URL `https://arduino.esp8266.com/stable/package_esp8266com_index.json` in your Arduino IDE under `File` -> `Preferences` -> `Additional Boards Manager URLs`.
+[^esp-install]: Official install guide https://github.com/esp8266/Arduino.
 
-Go to Tools > Board > Board Manager and search for 'esp8266'.
+Next we need to install libraries for our other hardware. In the `Tools` menu, select `Manage Libraries...`. In the search for: 
+- ADAfruit SSD1306 (for the OLED screen)
+- DHT sensor (for our DHT temperature/humiditys sensor)
 
-Official install guide  
-https://github.com/esp8266/Arduino
 
-(You can add multiple URLs, separating them with commas.)
 
 https://arduino.stackexchange.com/questions/38531/how-to-manage-dependencies
 
-ADAfruit SSD1306 for screen
-DHT sensor library for DHT 11
+
+ for screen
+
 
 
 Baud rate 115200
 
-# Setting up Wifi
+## Setting up Wifi
 ```cpp
 #include <ESP8266WiFi.h>        // Include the Wi-Fi library
 #include <ESP8266WiFiMulti.h>   // Include the Wi-Fi-Multi library
@@ -79,7 +88,7 @@ void setup() {
 ```
 
 
-# mDNS
+## mDNS
 Fortunately, there's another way: multicast DNS, or mDNS.
 mDNS uses domain names with the .local suffix, for example http://esp8266.local. If your computer needs to send a request to a domain name that ends in .local, it will send a multicast query to all other devices on the LAN that support mDNS, asking the device with that specific domain name to identify itself. The device with the right name will then respond with another multicast and send its IP address. Now that your computer knows the IP address of the device, it can send normal requests.
 
@@ -398,3 +407,8 @@ https://www.chartjs.org/
 
 ## Zoom
 https://www.chartjs.org/chartjs-plugin-zoom/samples/wheel/time.html
+
+
+
+# Housing 3D model
+
