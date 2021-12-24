@@ -27,6 +27,9 @@ For this project I used:
 These parts come for less than €5,- a piece these days, making the entry-barrier for these kinds of projects very low. Most of these can be bought from https://aliexpress.com or https://amazon.com. Due to the rapid supplier turnover, I will refrain from adding links for the individual components. 
 
 ## The ESP8266
+The ESP8266 is a microcontroller with built-in WiFi capabilities. You can view it as a "special Arduino", that with the help of some existing libraries allows you to easily build and host webservers/websockets. The ESP8266 is often used for IoT applications, for instance home-automation and sensors. 
+
+An excellent resource for understanding the many features of the ESP chipset was made by tttapa, and can be found on his [personal page here](https://tttapa.github.io/ESP8266/Chap01%20-%20ESP8266.html). A large part of my own software is based on his tutorial. 
 
 ## Wiring Scheme
 ![Wiring scheme](/static/esp/esp8266-pin-out.png)
@@ -35,9 +38,17 @@ These parts come for less than €5,- a piece these days, making the entry-barri
 For testing, I used a breadboard and some DuPont jumper cables to connect setup. 
 
 
-# Arduino Code 
+# Software
+In this section I will first explain how I set-up my environment, including dependencies. I wil then go through each part of the code and show it as a stand-alone code snippet. At the end, I will show the final result.
+
 ## Installing Dependencies
-To compile your software for the ESP8266, you need the so-called **board-manager for ESP**[^esp-install]. You can add this URL `https://arduino.esp8266.com/stable/package_esp8266com_index.json` in your Arduino IDE under `File` -> `Preferences` -> `Additional Boards Manager URLs`. Go to `Tools` > `Board` > `Board Manager` and search for "esp8266". (You can add multiple URLs, separating them with commas.)
+We start by cloning the repository: https://github.com/CH-Wong/esp8266-temp-hum-sensor
+
+Sadly, there is no good way to track and recreate Arduino environments, including dependencies[^dependencies]. As such, we will need to manually set up our Arduino environment through the Arduino IDE.
+
+[^dependencies]: Here is a nice discussion on the topic: https://arduino.stackexchange.com/questions/38531/how-to-manage-dependencies
+
+When I said the ESP8266 is a "special Arduino", it also meant that the standard Arduino compiler does not work for the ESP chipsets. To compile your code for the ESP8266, you need the so-called `board-manager for ESP`[^esp-install]. In your Arduino IDE under `File` -> `Preferences` -> `Additional Boards Manager URLs` you need to add this URL `https://arduino.esp8266.com/stable/package_esp8266com_index.json` to import the compiler. If you already had a URL there, you can add additional URLs by separating them with commas. Activate the ESP Board Manager by going to `Tools` -> `Board` -> `Board Manager` and searching for "esp8266". 
 
 [^esp-install]: Official install guide https://github.com/esp8266/Arduino.
 
@@ -45,16 +56,8 @@ Next we need to install libraries for our other hardware. In the `Tools` menu, s
 - ADAfruit SSD1306 (for the OLED screen)
 - DHT sensor (for our DHT temperature/humiditys sensor)
 
+We also need to the `ESP8266 Filesystem uploader`, which you can get from the official ESP8266 Github page: https://github.com/esp8266/arduino-esp8266fs-plugin/releases/. To save you the trouble, I have very lazily included it in my repository under the `tools/` directory
 
-
-https://arduino.stackexchange.com/questions/38531/how-to-manage-dependencies
-
-
- for screen
-
-
-
-Baud rate 115200
 
 ## Setting up Wifi
 ```cpp
@@ -87,7 +90,6 @@ void setup() {
 
 ```
 
-
 ## mDNS
 Fortunately, there's another way: multicast DNS, or mDNS.
 mDNS uses domain names with the .local suffix, for example http://esp8266.local. If your computer needs to send a request to a domain name that ends in .local, it will send a multicast query to all other devices on the LAN that support mDNS, asking the device with that specific domain name to identify itself. The device with the right name will then respond with another multicast and send its IP address. Now that your computer knows the IP address of the device, it can send normal requests.
@@ -112,35 +114,10 @@ void loop(void){
 }
 
 ```
-
-
 Then upload the webpages and scripts to SPIFFS using Tools > ESP8266 Sketch Data Upload.
 
-https://tttapa.github.io/ESP8266/Chap01%20-%20ESP8266.html
 
-# SPIFFS
-
-Need to add ESP8266 Filesystem uploader
-https://github.com/esp8266/arduino-esp8266fs-plugin
-
-in arduino project root
-
-```shell
-mkdir tools
-cd tools
-curl https://github.com/esp8266/arduino-esp8266fs-plugin/releases/download/0.5.0/ESP8266FS-0.5.0.zip -O ESP8266FS-0.5.0.zip
-```
-
-
-## Installation
-1. Make sure you use one of the supported versions of Arduino IDE and have ESP8266 core installed.
-2. Download the tool archive from releases page.
-3. In your Arduino sketchbook directory, create tools directory if it doesn't exist yet. You can find the location of your sketchbook directory in the Arduino IDE at File > Preferences > Sketchbook location.
-4. Unpack the tool into tools directory (the path will look like `<sketchbook directory>/tools/ESP8266FS/tool/esp8266fs.jar`).
-5. Restart Arduino IDE.
-
-Added the .jar file to my Github instead. Byebye updates
-
+## SPIFFS
 
 ```cpp
 #include <FS.h>   // Include the SPIFFS library
@@ -149,10 +126,7 @@ void setup () {
 }
 ```
 
-
-
-
-# Over-the-Air updates
+## Over-the-Air updates
 ```cpp
 void setup() {}
   ArduinoOTA.setHostname("ESP8266");
@@ -188,7 +162,7 @@ mDNS needs to be initialized after OTA because of hostname override
 https://github.com/esp8266/Arduino/issues/3840
 
 
-# Web-based filebrowser
+## Web-based filebrowser
 https://github.com/esp8266/ESPWebServer/tree/master/examples/FSBrowser
 
 ```cpp
@@ -363,7 +337,7 @@ String formatBytes(size_t bytes){
 }
 ```
 
-# Authentication for filebrowser
+## Authentication for filebrowser
 https://www.mischianti.org/2020/11/09/web-server-with-esp8266-and-esp32-manage-security-and-authentication-4/
 
 in index.html
@@ -378,18 +352,14 @@ function logoutButton() {
 }
 </script>
 ```
-
-
 In each function we need:
-
 ```cpp
   if (!httpServer.authenticate(wwwUsername, wwwPassword)) {
       httpServer.requestAuthentication();
   }
 ```
 
-
-# NTP
+## NTP
 ```cpp
 // For Network Time Protocol (NTP)
 WiFiUDP UDP;
