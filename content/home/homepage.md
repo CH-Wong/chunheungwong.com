@@ -8,7 +8,7 @@ showFullContent = true
 readingTime = false 
 +++
 
-Hey, I'm Chun and this is my website. I intend to share some projects here, as well as other things that interest me. These projects range from [physics simulations](/projects/spherical-pendulum), to [musical compositions](/music), to some [3D printing/Arduino projects](/projects/esp-thermal-humidity-sensor). 
+Hey, I'm Chun and this is my website. I intend to share some projects here, as well as other things that interest me. These projects range from physics simulations, to [musical compositions](/music), to some [3D printing/Arduino projects](/projects/esp-temperature-humidity-sensor). 
 
 If you came here looking for my C.V., you can find it on my [about page](/about/cv). 
 
