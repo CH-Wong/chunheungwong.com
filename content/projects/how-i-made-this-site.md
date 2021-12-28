@@ -145,7 +145,7 @@ The `{{ .Get "src" | safeURL }}` part essentially puts whatever I pass as the `s
 
 ```md
 <!-- Insert this expression into double accolades {{}} -->
-`<equation src="f(\phi)=e^{i\phi t}">`
+<equation src="f(\phi)=e^{i\phi t}">
 ```
 {{<equation src="f(\phi)=e^{i\phi t}">}}
 
@@ -153,7 +153,7 @@ I also added the `position` variable to be able to show centered equations:
 
 ```md
 <!-- Insert this expression into double accolades {{}} -->
-`<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">`
+<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">
 ```
 {{<equation src="H=P_\theta \dot{\theta}+P_\phi \dot{\phi}-L" position="center">}}
 
