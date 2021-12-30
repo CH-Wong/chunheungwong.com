@@ -1,5 +1,5 @@
 +++ 
-title = "Perudo: a game of probablity and bluffing" 
+title = "Perudo: a short dive into probability and game-theory" 
 date = "2021-12-30T13:22:17+01:00" 
 author = "Chun Heung Wong"
 cover = "" 
