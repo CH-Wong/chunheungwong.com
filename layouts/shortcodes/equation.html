@@ -1,4 +1,4 @@
 {{ if .Get "src" }}
-<image src="https://latex.codecogs.com/gif.latex?{{ .Get "src" | safeURL }}" class="{{ with .Get "position"}}{{ . }}{{ else -}} left {{- end }}" alt="LaTeX Equation" style="border-radius: 2px; background-color:white; padding: 5px">
+<image src='https://latex.codecogs.com/gif.latex?{{ .Get "src" | safeURL }}' class='{{ with .Get "position"}}{{ . }}{{ else -}} left {{- end }}' alt="LaTeX Equation" style="border-radius: 2px; background-color:white; padding: 5px">
 </image>
 {{ end }}
