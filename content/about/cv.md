@@ -69,7 +69,6 @@ readingTime = false
 - German (basic)
 - French (basic)
 - Swedish (basic A2 level)
-- Latin (basic)
 
 # Skills
 - Python, MatLAB, C++, Arduino, LaTeX
