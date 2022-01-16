@@ -11,6 +11,9 @@ readingTime = false
 draft = false
 +++
 
+https://tttapa.github.io/ESP8266/Chap10%20-%20Simple%20Web%20Server.html
+https://www.geekstips.com/two-esp8266-communication-talk-each-other/
+
 This page contains a summary of what I have learned whilst trying to build a web-hosted temperature/humidity sensor module using the [ESP8266 WiFi microcontroller](https://en.wikipedia.org/wiki/ESP8266). At the end of the project, you will end up with a WiFi-controllable Temperature & Humidity sensor, updatable over WiFi, with a webserver hosting your data on your local network using ChartJS. This is all wrapped up in a 3D printed housing model to it to finish it all up. 
 
 The code used in this project can be found on my [Github Page](https://github.com/CH-Wong/esp8266-temp-hum-sensor) here. 
@@ -35,7 +38,7 @@ An excellent resource for understanding the many features of the ESP chipset was
 ![Wiring scheme](/static/esp/esp8266-pin-out.png)
 *ESP8266 diagram from https://esp8266-shop.com/*
 
-For testing, I used a breadboard and some DuPont jumper cables to connect setup. 
+For testing, I used a breadboard and some DuPont jumper cables to connect setup. The wiring is very basic: we essentially connect the power and ground of the ESP to that of the components. Both the DHT11 and the 0.96 OLED display communicate using digital signals. We can hook up the signal/read-out lines to arbitrary Digital ports of our ESP, as long as it matches our code later.
 
 
 # Software
