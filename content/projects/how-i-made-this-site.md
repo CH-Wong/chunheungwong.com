@@ -230,9 +230,10 @@ theme = 'hugo-theme-novela'
 baseURL = 'https://www.yourdomain.com'
 languageCode = 'en-us'
 title = "Chun's Website"
+theme = "github.com/forestryio/hugo-theme-novela"
 [module]
 [[module.imports]]
-  path = 'github.com/spf13/hyde'
+  path = 'github.com/forestryio/hugo-theme-novela'
 ```
 Your website should now be stylized using the `novela` theme! Most themes also allow for easy configuration of pre-defined settings using the `config.toml` file. The syntax for these configurations can usually be found on the theme's Github repository. For the `novela` theme, we find easy setup for social accounts:
 
@@ -256,7 +257,8 @@ author = "authors"
 
 [^1]: **Directly cloning themes (simple)** is the simplest to understand: you basically copy all the files you need into your directory. 
 
-[^2]: **Adding theme as submodule (recommended)** Allows it to be tracked separately from your main git repository. This could be nice for separate version control, and is the method recommended by `hugo`.
+[^2]: **Adding theme as submodule (recommended)** Allows it to be tracked separately from your main git repository. This could be nice for separate version control, and is the method recommended by [`hugo`](https://gohugo.io/hugo-modules/use-modules/). To do this, you need to first initialize the Hugo modules `hugo mod init github.com/<your_user>/<your_project>`
+
 
 [^3]: **Using Hugo Mods (for cool kids only)** for themes allows you to build you website without ever having to pull the directory. This is cool because theres less files in your repository, and keeps everything remote that is remote. However, it's quite a hassle to view the theme's files if you are trying to tweak them, and extra import statements are required later on when we deploy automate the deployment of this website through Github Actions.
 
@@ -288,7 +290,6 @@ draft: true
 ```
 
 The key is that the filename and folder structure must be **identical**. Try creating creating a `default.md` in your `/yourdomain.com/archetypes` folder, and use `hugo new posts/new-archetype-post.md` to check the result.
-
 
 # 2. Creating an Azure Storage Blob {#settingupblob}
 ## 2.1 Creating a storage account

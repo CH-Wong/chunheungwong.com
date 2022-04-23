@@ -11,10 +11,8 @@ readingTime = true
 draft = true
 +++
 
-# Should I use vim?
+# VIM
 https://danielmiessler.com/study/vim/
-
-
 
 https://rufus.ie/en/
 
