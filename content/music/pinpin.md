@@ -3,7 +3,7 @@ title = "Pinpin"
 date = "2021-12-02T10:26:23+01:00" 
 author = "Chun Heung Wong" 
 cover = "" 
-tags = ["composition", "piano", "arpeggios"] 
+tags = ["composition", "piano"] 
 keywords = ["", ""] 
 description = "" 
 showFullContent = false
@@ -15,4 +15,4 @@ draft = true
 
 -------------------------------------
 
-{{< embed-pdf url="./static/music/Chasing Love - CH Wong.pdf" >}}
+{{< embed-pdf url="./static/music/Pinpin.pdf" >}}
