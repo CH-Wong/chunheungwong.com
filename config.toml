@@ -1,7 +1,7 @@
 baseURL = 'https://chunheungwong.com'
 languageCode = 'en-us'
 title = "chunheungwong.com"
-theme = 'terminal'
+theme = 'terminal-theme'
 paginate = 5
 
 # Used to generate last modified date from git commits
