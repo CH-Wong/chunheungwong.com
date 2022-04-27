@@ -1,6 +1,6 @@
-baseURL = 'https://chunheungwong.com'
+baseURL = 'https://chunheung.com'
 languageCode = 'en-us'
-title = "chunheungwong.com"
+title = "chunheung.com"
 theme = 'terminal-theme'
 paginate = 5
 
