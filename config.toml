@@ -71,7 +71,7 @@ enableGitInfo = true
     missingBackButtonLabel = "Back to homepage"
 
     [languages.en.params.logo]
-      logoText = "chunheungwong.com"
+      logoText = "chunheung.com"
       logoHomeLink = "/home"
 
     [[languages.en.menu.main]]
