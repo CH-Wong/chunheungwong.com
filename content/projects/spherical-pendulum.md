@@ -1,7 +1,7 @@
 +++
 title = "Pendulum Simulations"
 date = "2021-12-01T19:46:42+01:00"
-author = ""
+author = "Chun Heung Wong"
 authorTwitter = "" #do not include @
 cover = ""
 tags = ["simulation", "classical-mechanics", "chaos"]

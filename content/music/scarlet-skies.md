@@ -63,9 +63,9 @@ I've forgotten, when did we last reach for where these skies and bridges lead.
 When the air rises will you be with me?
 
 Chorus
-And fly, fall up to when we had only dreamed. 
-Then I would tell you that I'm sorry for every time you cried,
-Over all the things that we'll never be.
+Fly away, fall up to when all of our dreams were real.
+Finally, I could tell you that I'm sorry for everytime these 
+Scarlet skies turned black and white  
 If I burn down the lights around me, can you still make me see?
 
 Verse 
