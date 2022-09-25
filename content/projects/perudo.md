@@ -44,6 +44,7 @@ Discrete probability statistics
 
 
 
+
 [Binomial theorem](https://en.wikipedia.org/wiki/Binomial_distribution)
 
 {{<equation src="Pr(X = k) = {n \choose k} p^k (1-p)^{n-k}">}}
