@@ -273,7 +273,6 @@ excerpt:
 draft: true
 ---
 ```
-
  If you are not happy with this `default.md`, you can override it by adding your own `default.md` file in your root folder 
 ```
 --- yourdomain.com/
