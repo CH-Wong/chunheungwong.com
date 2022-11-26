@@ -14,8 +14,6 @@ draft = true
 # Should I use vim?
 https://danielmiessler.com/study/vim/
 
-
-
 https://rufus.ie/en/
 
 https://ubuntu.com/download/server

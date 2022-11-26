@@ -1,5 +1,5 @@
 +++
-title = "Pendulum Simulations"
+title = "Chaos"
 date = "2021-12-01T19:46:42+01:00"
 author = ""
 authorTwitter = "" #do not include @
@@ -11,6 +11,9 @@ showFullContent = false
 readingTime = true
 draft = true
 +++
+
+
+- 3-body problem simulator? -> Chaotic behaviour?
 
 # A journey into chaos
 After reading the book [Chaos: Making a new science (James Gleick, 1987)](https://en.wikipedia.org/wiki/Chaos:_Making_a_New_Science) I was compelled to revisit classical mechanics and see where my curriculum conveniently might have skipped through the non-linear problems. In the book, the [logistic map](https://en.wikipedia.org/wiki/Logistic_map) is shown as one of the simple equations with complicated behaviours. 
