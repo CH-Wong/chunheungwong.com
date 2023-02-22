@@ -20,11 +20,11 @@ readingTime = false
 - Developed Python-based data plotting and analysis software with integrated quality control routines.
 - Contributed to €2M EIC Accelerator grant proposal (granted March 2019).
 
-**Founder & CTO (part-time)** - [Elephants in the Room](https://elephantsintheroom.co/) (Jan 2021 - Present)
+**Founder & CTO (part-time)** - [Elephants in the Room](https://elephantsintheroom.co/) (Jan 2021 - Jan 2023)
 
 *Elephants in the Room is a start-up developing human interaction models and applications.*
 - Contributing to strategic technical roadmap.
-- Developing Human Interaction models (awaiting validation).
+- Designing and implementing Human Interaction models.
 
 **Assistant Physics Tutor (part-time)** - [SSL](https://www.sslleiden.nl/) (Apr 2014 - Jul 2018)
 
