@@ -98,9 +98,3 @@ enableGitInfo = true
         url = "/about/cv"
         weight = 4 
 
-      [[languages.en.menu.main]]
-        identifier = "notes"
-        name = "notes"
-        url = "/notes"
-        weight = 4 
-
