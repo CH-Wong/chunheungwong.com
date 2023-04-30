@@ -10,7 +10,7 @@ enableGitInfo = true
 [params]
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "home"
+  contentTypeName = "about"
 
   # ["orange", "blue", "red", "green", "pink"]
   themeColor = "orange"
@@ -57,7 +57,7 @@ enableGitInfo = true
   [languages.en]
     languageName = "English"
     title = "Home"
-    subtitle = "A simple website for things I find interesting."
+    subtitle = "Mostly empty portfolio website."
     owner = "Chun Heung Wong"
     keywords = ["portfolio", "personal"]
     copyright = "MIT License"
@@ -71,12 +71,12 @@ enableGitInfo = true
 
     [languages.en.params.logo]
       logoText = "chunheung.com"
-      logoHomeLink = "/home"
+      logoHomeLink = "/about"
 
     [[languages.en.menu.main]]
-        identifier = "home"
-        name = "home"
-        url = "/home"
+        identifier = "about"
+        name = "about"
+        url = "/about"
         weight = 1
 
     [languages.en.menu]
@@ -92,9 +92,5 @@ enableGitInfo = true
         url = "/music"
         weight = 3
 
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "about me"
-        url = "/about/cv"
-        weight = 4 
+
 
