@@ -1,101 +1,131 @@
 +++ 
 title = "Scarlet Skies" 
-date = "2022-02-01T20:04:19+01:00" 
-author = "Chun Heung Wong"
+date = "2021-12-02T10:26:23+01:00" 
+author = "Chun Heung Wong" 
 cover = "" 
-tags = ["", ""] 
+tags = ["composition"] 
 keywords = ["", ""] 
 description = "" 
 showFullContent = false
-readingTime = true 
-draft = true
+readingTime = false 
+draft = false
 +++
 
-Notes
+## Chords 
+Chord notation with recommended voicings, definitely not necessary to add all the stuff after the chord indication.
 
-Intro
-| C | % | Dm7(9) | % |
-| Em6 | % | F7(9) | % |
-| F79 | G9 | Am7 | G/B C 9 | 
-| F79 | G9 | Am7 | Ab Bb | 
+Intro  
+| D79 (add13) | % Esus4 | F#m7 | E/G# |
+| D79 (add13) | % Esus4 | F#m7 | E/G# A A/C# D |  x2 
+| D79 (add13) | % Esus4 | F#m7 | E/G# |
+| D79 (add13) | % Esus4 | F#m7 | Esus4 |  x2 
 
-Verse 1
-| C | % | Dm7(9) | % |
-| Em6 | % | F7(9) | % |
+Verse
+| D79 (add13) | % Esus4 | F#m7  | E/G# A A/C# D |
+| D79 (add13) | % Esus4 | F#m7  | E/G# A A/C# D |
+| D79 (add13) | % Esus4 | F#m7  | E/G# A A/C# D |
+| D79 (add13) | % Esus4 | F#m7  | E/G# A A/C# Bm | x2
 
-| C | % | Dm7(9) | % |
-| Am7 | % | G | G7 |
+Prechorus 1
+| Bm7 | A/C# (add9) | F#m79 | Esus4 E |
+| Bm7 | A/C# (add9) | Esus4 | E |
+| Bm7 | A/C# (add9) | F#m79 | Esus4 E |
+| Bm7 | A/C# (add9) | Esus4 | E |
 
 Chorus 1
-| F79 | G9 | Am7 | G/B C9 | x3
-| Dm7 Em | F7 | G9 | % |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| E D/F# | G(add 13) | Asus4 | A |
 
 Verse 2
+| D79 (add13) | % | Esus4 | % |
+| F#m7 | % |  E/G# Aadd9 | E/G# Aadd9 A/C# |
+| D79 (add13) | % | Esus4 | % |
+| F#m7 | % |  E/G# Aadd9 A/C# | D79 (add13) |   
+
+Prechorus 2
+| Bm7 | A/C# (add9) | F#m79 | Esus4 E |
+| Bm7 | A/C# (add9) | Esus4 | E |
+| Bm7 | A/C# (add9) | F#m79 | Esus4 E |
+| Bm7 | A/C# (add9) | Esus4 | E |
+
 Chorus 2
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| E D/F# | G(add 13) | Asus4 | A |
 
-Bridge p1
-| Fm79 | % | Cmaj79 | % | 
-| C7/Bb | % | Ab7 | Bb | 
+Bridge (Piano)  
+| Gmaj7 (add13) | % | F#m7 | % |
+| Fmaj7 |  % |  Ebdim7 | E | 
+| Gmaj7 (add13) | % | F#m7 | % |
+| Em | F#m | Bb | C |
 
-| C | % | C7/Bb | % | 
-| Am7 | % | Ab7 | Bb | 
+Bridge (Guitar Solo)
+| D | D7 | Cadd9 | % | 
+| Bdim | % | B | C | B | C | 
 
-Bridge p2
-| F | G | Am7 | G/B C9 | 
-| F | G | Dm7 C/E | F Gsus4 G | 
+Bridge (Ensemble)
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Esus4 | E | 
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Esus4 | E | 
 
-| F | G | Am7 | G/B C9 | 
-| F | G | Dsus4 | D | 
+Outro  
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  Bb C  |
+| G (add13) | A (sus4) | Bm7 |  A/C# D D/A |
+| G (add13) | A (sus4) | Bm7 |  Bb C |
 
-Outro 
-| F79 | G9 | Am7 | G/B C9 | x7
-| F79 | G9 | Am7 | Ab Bb | 
-| C |
+| D |
 
-
-I was lost on a path I forgot I was taking
-In the smoke and the ash from a fire you made into a hope in my heart that has gone, 
+## Lyrics
 
 Verse 1
-Could you tell me, will we ever come back to this life?
-Now we both have, so much left to be. 
-I've forgotten, when did we last reach for where these skies and bridges lead.
-When the air rises will you be with me?
+Drifted to a dream of you last night.
+When I held you in my arms for what would be the only time   .
+Is it wrong for me to wish to see,
+the things that we would never be.
+All our dreams turned out to be a lie. 
+
+Verse 2
+I wake up and the moment passes by.
+I remember when you told me, "we're free to roam the skies!",
+My "conquest is complete", "dim the searchlights", "the sun will rise".
+You told me I am yours and you'll be mine.
+
+Prechorus
+By the way, have you noticed day by day
+how these memories we shared are growing cold?
+By the way, I've forgotten what it feels like,
+When all the nights we shared have come to call?   
 
 Chorus
-Fly away, fall up to when all of our dreams were real.
-Finally, I could tell you that I'm sorry for everytime these 
-Scarlet skies turned black and white  
-If I burn down the lights around me, can you still make me see?
+Let's fly away, 
+and fall up to when all of our dreams were real,  
+And finally, 
+I could tell you that I'm sorry for every time,  
+These scarlet skies that filled our eyes had faded into black and white,  
+If we could turn back around to find it, would you still make me see?  
 
-Verse 
-You told me, my search is done,
-One heartbeat is all I've won;
-And I can't help but regret just what went wrong.
-You took me, and all my thoughts, but hardly you gave me yours. Make up your mind, can't you let me be?
+Verse 3
+Honestly, 
+I never though that I could be loved, the way I loved you.
+That's why I'm afraid,
+of a life stuck in a dance with what we have and,  what could have been
 
-Chorus
-And fly, fall up to when we had only dreamed,
-Then I would tell you that I'm sorry for every time you cried,
-Over all the things that we'll never be.
-.
-If I burn down the lights around me, can you still make me see.
+Prechorus
+By the way, have you noticed day by day
+how these memories we shared are growing cold?
+By the way, I've forgotten what it feels like,
+When all the nights we shared  have come to call?  
 
-Bridge
-I see your fire, losing all control.
-I can't deny her, but I can't let you go.
-If we would fall here, could you just help me breathe?
+Bridge *(To be rewritten)*
+I see your fire, losing all control.  
+I can't deny her, but I can't let you go.  
+If we would fall here, could you just help me breathe?  
 
-Outro
-I still hear your voice ring inside of me; 
-Cover my eyes and I'll face this illusion.
-If you'd throw out your lies and scream with me.
-
-All of your words, they're calling me,
-Into the night, where you keep our delusions.
-Now just burn all the lights and scream with me.
-
-Scarlet skies turn black and white
-each time I look into your eyes. 
-I don't know what is wrong or right, you tell me. x2
-
+Outro *(To be rewritten)*
+2x Scarlet skies turn black and white each time I look in to your eyes
+I don't know what is wrong or right, you tell me
