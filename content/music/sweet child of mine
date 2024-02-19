@@ -11,34 +11,35 @@ readingTime = true
 draft = true
 +++
 
-
 Original key: D# natural minor, but actually more like C# Mixolydian
 
 Intro
+| C# | B    | F# | C# |x2
 
-| C# | B    | F# | C# |
 Gives more of C# natural minor feel due to the resolution to C#, but is in this case the V. 
 As a result a strong feel of instead:
-| I  | bVII | IV  | I  |
-| C# | B    | F# | C# |
+
+"Actual"            | V  | IV   | I  | V  |
+What it feels like  | I  | bVII | IV | I  |
+                    | C# | B    | F# | C# |
 
 Verse 1
-| C# | B    | F# | C# |
-| V  | IV   | I  | V  |
-| C# | B    | F# | C# |
+| C# | B | F# | C# |
+| C# | B | F# | C# |
 
-| ii | IV | V  | V  |
 | G#m | B    | C# | C# |
-| ii | IV | V  | V  |
 | G#m | B    | C# | C# |
 
 Similarily seems to be resolving to C#, again voice leading to the V of the tonic. 
 Giving the mixolydian feel of 
-| G#m | B    | C# | C# |
+
+"Actual"           | ii  | IV   | V  | V  |
+What it feels like | iv  | bVII | I  | I  |
+                   | G#m | B    | C# | C# |
 
 Guitar interlude #1
-| I  | bVII | V  | I  |
-| C# | B    | IF# | C# |
+| I  | bVII | V   | I  |
+| C# | B    | F# | C# |
 
 Verse 2
 | I  | bVII | V  | I  |
@@ -46,7 +47,7 @@ Verse 2
 | I  | bVII | V  | I  |
 | C# | B    | F# | C# |
 
-| iv | bVII | I  | I  |
+
 | G# | B    | C# | C# |
 | iv | bVII | I  | I  |
 | G# | B    | C# | C# |
