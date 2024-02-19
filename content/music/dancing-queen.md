@@ -19,6 +19,7 @@ Notes:
 - For bass notes during pedalling, A, E, C# -> A, F#, D sounds nice. 
 
 **INTRO**
+
 | A | D/A | A | D/A | (pedal tone!)
 | A | D/A | A | D/A | Ooh...
 
@@ -28,6 +29,7 @@ See that girl,   Watch that scene, Digging the dancing queen
 | D(add9)      | Bm7        E7sus4           | A          | D/A | 
 
 **VERSE 1**
+
 Friday night and the lights are low  
 | A(add9)                        | D/A                              |
 Looking out for a place to         go---oo  
@@ -52,6 +54,7 @@ get the chance...                                     You are the
 
 
 **CHORUS 1**
+
 Dancing queen, Young and sweet, Only
 | A          | D/A                   |  
 seventeen,
@@ -68,6 +71,7 @@ See that girl, Watch that scene, Digging the dancing queen
 
 
 **VERSE 2**
+
 You're a teaser, you turn 'em on.
 | A(add9)                          | D/A                          |
 Leave 'em burning and then you're... go---one.   
@@ -81,6 +85,7 @@ get the chance...                                       You are the
 
 
 **CHORUS 2**
+
 Dancing queen, Young and sweet, Only
 | A          | D/A                   |  
 seventeen,
