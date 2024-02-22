@@ -18,7 +18,8 @@ Notes:
 - For the jingles at the top-end, I play chords. Essentially A, E, D inverted such that the top line is A - G# - F#
 - For bass notes during pedalling, A, E, C# -> A, F#, D sounds nice. 
 
-**INTRO**  
+```
+INTRO
   
 | A | D/A | A | D/A | (pedal tone!)  
 | A | D/A | A | D/A | Ooh...  
@@ -28,7 +29,7 @@ You can dance,   You can jive, Having the time of your life, ooh
 See that girl,   Watch that scene, Digging the dancing queen  
 | D(add9)      | Bm7        E7sus4           | A          | D/A |  
   
-**VERSE 1**  
+VERSE 1  
   
 Friday night and the lights are low  
 | A(add9)                        | D/A                              |  
@@ -53,7 +54,7 @@ get the chance...                                     You are the
 (Two bars missing? still sounds great though.)  
   
   
-**CHORUS 1**  
+CHORUS 1 
   
 Dancing queen, Young and sweet, Only  
 | A          | D/A                   |  
@@ -70,7 +71,7 @@ See that girl, Watch that scene, Digging the dancing queen
 | D(add9)    | Bm7        E7sus4           | A           | D/A    |  
   
   
-**VERSE 2**  
+VERSE 2  
   
 You're a teaser, you turn 'em on.  
 | A(add9)                          | D/A                          |  
@@ -84,7 +85,7 @@ get the chance...                                       You are the
 | Bm7                              | E7sus4             E7        |  
   
   
-**CHORUS 2**  
+CHORUS 2  
   
 Dancing queen, Young and sweet, Only  
 | A          | D/A                   |  
@@ -103,3 +104,4 @@ Digging the dancing queen...
 |  A                                       |  D/A                 |  
 Digging the dancing queen...  
 |  A                                       |  D/A                 |  
+```
