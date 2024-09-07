@@ -12,13 +12,17 @@ draft = false
 +++
 
 ## Chords 
-Chord notation with recommended voicings, definitely not necessary to add all the stuff after the chord indication.
-
 Intro  
 | D79 (add13) | % Esus4 | F#m7 | E/G# |
 | D79 (add13) | % Esus4 | F#m7 | E/G# A A/C# D |  x2 
 | D79 (add13) | % Esus4 | F#m7 | E/G# |
 | D79 (add13) | % Esus4 | F#m7 | Esus4 |  x2 
+
+Drift into a dream with me tonight
+Where you held onto my arms what could be our one last time.
+Is it wrong for me to wish to see,
+the things that we would never be.
+After all our dreams turn out to be a lie. 
 
 Verse
 | D79 (add13) | % Esus4 | F#m7  | E/G# A A/C# D |
@@ -82,50 +86,71 @@ Outro
 
 ## Lyrics
 
-Verse 1
-Drifted to a dream of you last night.
-When I held you in my arms for what would be the only time   .
+### Verse 1
+Drift into a dream with me tonight
+Where you held onto my arms what could be our one last time.
 Is it wrong for me to wish to see,
 the things that we would never be.
-All our dreams turned out to be a lie. 
+After all our dreams turn out to be a lie. 
 
-Verse 2
+### Verse 2
 I wake up and the moment passes by.
 I remember when you told me, "we're free to roam the skies!",
 My "conquest is complete", "dim the searchlights", "the sun will rise".
-You told me I am yours and you'll be mine.
+You told me "I am yours" and you'll be mine.
 
-Prechorus
+Well.
+
+### Prechorus
 By the way, have you noticed day by day
-how these memories we shared are growing cold?
-By the way, I've forgotten what it feels like,
-When all the nights we shared have come to call?   
+how these memories we shared have gone away?
+By the way, have you forgotten what it feels like,
+when all the thoughts we had were you and me. 
 
-Chorus
+### Chorus
 Let's fly away, 
 and fall up to when all of our dreams were real,  
 And finally, 
-I could tell you that I'm sorry for every time,  
-These scarlet skies that filled our eyes had faded into black and white,  
-If we could turn back around to find it, would you still make me see?  
+I could tell you that I'm sorry for,
+Every time these scarlet skies that filled our eyes,
+had faded into black and white,  
+If we could turn back around to find it, 
+would you still make me see?  
 
-Verse 3
+### Verse 3
 Honestly, 
 I never though that I could be loved, the way I loved you.
 That's why I'm afraid,
 of a life stuck in a dance with what we have and,  what could have been
 
-Prechorus
+### Prechorus
 By the way, have you noticed day by day
-how these memories we shared are growing cold?
-By the way, I've forgotten what it feels like,
-When all the nights we shared  have come to call?  
+how these memories we shared have gone away?
+By the way, have you forgotten what it feels like,
+when all the thoughts we had were you and me. 
 
-Bridge *(To be rewritten)*
+### Chorus
+Let's fly away, 
+and fall up to when all of our dreams were real,  
+And finally, 
+I could tell you that I'm sorry for,
+Every time these scarlet skies that filled our eyes,
+had faded into black and white,  
+If we could turn back around to find it, 
+would you still make me see?  
+
+### Bridge *(To be rewritten)*
 I see your fire, losing all control.  
 I can't deny her, but I can't let you go.  
 If we would fall here, could you just help me breathe?  
 
-Outro *(To be rewritten)*
-2x Scarlet skies turn black and white each time I look in to your eyes
-I don't know what is wrong or right, you tell me
+### Outro
+Scarlet skies that filled our eyes 
+have faded into black and white, 
+I dont know how to make things right,
+You tell me.
+
+Scarlet Skies light up the night, 
+each time I look in to your eyes,
+I don't know if they'll stay this time,
+You tell me, 

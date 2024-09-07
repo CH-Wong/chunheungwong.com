@@ -34,8 +34,9 @@ Tonic: C (major) with modulation to D (major)
 
 
 # Chorus
-| F G | Em A | D G | C C7 |  
-| F G | Em A | D G | C C/B|  
+| F G | Em Am | Dm G | C C7 |  
+| F G | Em Am | Dm G | C C/B|  
+| F G | Em Am | Dm G | C C/B|  
 | Dm7 | Em7 | Fm | G |  
 | C | % | % | % |  
 | G | G7 | % | % |
