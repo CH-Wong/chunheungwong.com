@@ -1,16 +1,18 @@
 +++ 
 title = "Scarlet Skies" 
-date = "2022-02-01T20:04:19+01:00" 
-author = "Chun Heung Wong"
+date = "2021-12-02T10:26:23+01:00" 
+author = "Chun Heung Wong" 
 cover = "" 
-tags = ["", ""] 
+tags = ["composition"] 
 keywords = ["", ""] 
-description = "" 
+description = "Original composition." 
 showFullContent = false
-readingTime = true 
+readingTime = false 
 draft = false
 +++
+# Scarlet Skies
 
+```
 Intro 1
 | D A/C# | B     | A C#m/G# | F#m     |
 | F C/E  | Eb Dm | C rit.   | Esus4 E |
@@ -100,7 +102,7 @@ how these memories we shared are growing cold?
 | D | F#m | A/E | E/G# A |
 By the way, I've forgotten what it feels like,
 
-| Bm7 Bm7/A | Emsus4/G  | Esus4 | E |
+| Bm7 | Aadd9/C#  | Esus4 | A/C# D E |
 When all the nights we shared have come to call?  
 
 Chorus 2
@@ -120,12 +122,12 @@ Bridge (Piano)
 | Gmaj7 | %   | F#m7   | % |
 | Fmaj7 | %   | Ebdim7 | E | 
 | Gmaj7 | %   | F#m7   | % |
-| Em    | F#m | Bb     | C |
+| Em    | F#m | Bbmaj7     | C |
 
 Bridge (Guitar Solo)
-| D    | D7 | Cadd9 | % | 
-| Bdim | %  | 
-| Bb   | C  | Bb    | C | 
+| D   D7 | % | Cadd9 | % | 
+| Bdim   | % | 
+| Bb     | C | Bb    | C | 
 (Not sure if it should be Bb or A#, pretty sure in this context it is VIb VIIb I)
 
 Bridge (Ensemble)
@@ -148,41 +150,8 @@ And I don't know where they'll be tonight, you tell me.
 | Gadd9 | A | Bm7 | A/C# D D/A |
 Scarlet skies light up the night each time I look into your eyes
 
-| E D/F# | Gadd9 | Bb C | D |
+| E D/F# | Gadd9 | Bb | C |
 If we could turn back around to find it, would you still make me see? 
 
-
-### OLD
-I was lost on a path I forgot I was taking  
-In the smoke and the ash from a fire you made into a hope in my heart that has gone,  
-  
-Verse 1  
-Could you tell me, will we ever come back to this life?  
-Now we both have, so much left to be.  
-I've forgotten, when did we last reach for where these skies and bridges lead.  
-When the air rises will you be with me?  
-  
-Chorus  
-And fly, fall up to when we had only dreamed.  
-Then I would tell you that I'm sorry for every time you cried,  
-Over all the things that we'll never be.  
-If I burn down the lights around me, can you still make me see?  
-
-Verse  
-You told me, my search is done,  
-One heartbeat is all I've won;  
-And I can't help but regret just what went wrong.  
-You took me, and all my thoughts, but hardly you gave me yours. Make up your mind, can't you let me be?  
-
-Bridge  
-I see your fire, losing all control.  
-I can't deny her, but I can't let you go.  
-If we would fall here, could you just help me breathe?  
-  
-Outro  
-I still hear your voice ring inside of me,  
-Your words bring me back to a handful of moments,  
-That we shared in those nights that now seem like a dream,
-
-
-
+| D |
+```

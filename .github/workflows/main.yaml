@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build and deploy Hugo static webpage to Azure blob
+name: Build and Deploy Website
 
 # Controls when the workflow will run
 on:
@@ -14,8 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    environment: website-build-environment
+  Build-and-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -37,13 +36,15 @@ jobs:
           extended: true
 
       # Runs a single command using the runners shell
-      - name: Build site
+      - name: Build site with Hugo
         run: hugo --minify
 
-      # Runs a set of commands using the runners shell
-      - name: Deploy to Azure Blob Storage
-        uses: bacongobbler/azure-blob-storage-upload@v1.2.0
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-            source_dir: public #Hugo build generates this file after build
-            container_name: $web
-            connection_string: ${{ secrets.BLOB_STORAGE_CONNECTION_STRING }}
+          server: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          port: ${{ secrets.DEPLOY_PORT}}
+          local-dir: ${{ secrets.DEPLOY_SOURCE}}
+          server-dir: ${{ secrets.DEPLOY_TARGET}}

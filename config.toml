@@ -1,16 +1,18 @@
-baseURL = 'https://chunheungwong.com'
+baseURL = 'https://chunheung.com'
 languageCode = 'en-us'
-title = "chunheungwong.com"
+title = "chunheung.com"
 theme = 'terminal-theme'
-paginate = 5
 
 # Used to generate last modified date from git commits
 enableGitInfo = true
 
+[pagination]
+  pagerSize = 5
+
 [params]
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "home"
+  contentTypeName = "about"
 
   # ["orange", "blue", "red", "green", "pink"]
   themeColor = "orange"
@@ -57,7 +59,7 @@ enableGitInfo = true
   [languages.en]
     languageName = "English"
     title = "Home"
-    subtitle = "A simple website for things I find interesting."
+    subtitle = "Mostly empty portfolio website."
     owner = "Chun Heung Wong"
     keywords = ["portfolio", "personal"]
     copyright = "MIT License"
@@ -70,13 +72,13 @@ enableGitInfo = true
     missingBackButtonLabel = "Back to homepage"
 
     [languages.en.params.logo]
-      logoText = "chunheungwong.com"
-      logoHomeLink = "/home"
+      logoText = "chunheung.com"
+      logoHomeLink = "/about"
 
     [[languages.en.menu.main]]
-        identifier = "home"
-        name = "home"
-        url = "/home"
+        identifier = "about"
+        name = "about"
+        url = "/about"
         weight = 1
 
     [languages.en.menu]
@@ -92,11 +94,6 @@ enableGitInfo = true
         url = "/music"
         weight = 3
 
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "about me"
-        url = "/about/cv"
-        weight = 4 
 
       [[languages.en.menu.main]]
         identifier = "notes"

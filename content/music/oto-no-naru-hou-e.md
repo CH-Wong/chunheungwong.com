@@ -29,13 +29,14 @@ Tonic: C (major) with modulation to D (major)
 | F | G | Em | Am |  
 | D | Em | Fm | G | 
 
-(Beautiful harmony line during Fm, switching to Cm scale C Ab Bb G G)
+(Cool melody during Fm, switching to Cm scale!)
 
 
 
 # Chorus
-| F G | Em A | D G | C C7 |  
-| F G | Em A | D G | C C/B|  
+| F G | Em Am | Dm G | C C7 |  
+| F G | Em Am | Dm G | C C/B|  
+| F G | Em Am | Dm G | C C/B|  
 | Dm7 | Em7 | Fm | G |  
 | C | % | % | % |  
 | G | G7 | % | % |
@@ -43,10 +44,6 @@ Tonic: C (major) with modulation to D (major)
 
 # Modulation
 | C | D |   
-
-
-
-
 
 # Pre-chorus 2
 | F | G | Em | Am |  

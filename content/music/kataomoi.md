@@ -13,6 +13,13 @@ draft = true
 
 [source](https://www.youtube.com/watch?v=Opp9nqiN5m0)
 
+Db major
+
 # Intro
-| C# |
+| Db Fm7 (or Db/F?) | Bbm7 (add13?) |
+| Gbmaj7 Fm7        | Ebm7 Ab7      |
+
+
+| Gb Ab | Bbm | 
+| Gb Ab | Bbm | 
 
