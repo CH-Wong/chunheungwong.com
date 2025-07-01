@@ -8,7 +8,7 @@ keywords = ["", ""]
 description = "" 
 showFullContent = false
 readingTime = true 
-draft = true
+draft = false
 +++
 
 Key: C natural major
@@ -20,13 +20,13 @@ INTRO
 
 VERSE 1
   Ly-----ing in my bed I hear the 
-| F/C    C       | F/C   C      | 
+| Dm/C    C       | Dm/C   C      | 
   clock  tick, and think of you
-| F/C    C       | F/C      C   |
+| Dm/C    C       | Dm/C      C   |
   Caught up in     cir------cles
-| F/C    C       | F/C      C   |
+| Dm/C    C       | Dm/C      C   |
 Confu----sion is   nothing  new
-|  F/C   C       | F/C      C   |
+| Dm/C   C        | Dm/C      C   |
 (Maybe Dm/C or F6/C intead? Melody stays on a D.)  
 
 PRECHORUS 1
@@ -42,13 +42,13 @@ PRECHORUS 1
 
 VERSE 2
   Some---times you picture     me, I'm
-| F/C    C       | F/C         C     |
+| Dm/C    C       | Dm/C   C      | 
   wal----king too  far       a-head
-| F/C    C       | F/C         C     |
+| Dm/C    C       | Dm/C   C      | 
   You're calling   to          me,  I 
-| F/C    C       | F/C         C     |
+| Dm/C    C       | Dm/C   C      | 
   can't  hear      what you've said
-| F/C    C       | F/C         C     |
+| Dm/C    C       | Dm/C   C      | 
 
 PRECHORUS 2
   Then you say,  go    slow
@@ -78,13 +78,13 @@ CHORUS 1
 
 VERSE 3
   Af----ter     my     picture   fades and 
-| F/C   C            | F/C       C        | 
+| Dm/C    C       | Dm/C   C      | 
   dark---ness has      turned to gray
-| F/C    C           | F/C       C        |
+| Dm/C    C       | Dm/C   C      | 
   Wat----ching through wind-----ows, you're 
-| F/C    C           | F/C      C         |
+| Dm/C    C       | Dm/C   C      | 
   wonde--ring if       I'm o----kay
-| F/C    C           | F/C      C         |
+| Dm/C    C       | Dm/C   C      | 
 
 PRECHORUS 3
   Se------crets    sto---len 

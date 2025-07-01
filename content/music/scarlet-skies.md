@@ -102,7 +102,7 @@ how these memories we shared are growing cold?
 | D | F#m | A/E | E/G# A |
 By the way, I've forgotten what it feels like,
 
-| Bm7 Bm7/A | Emsus4/G  | Esus4 | E |
+| Bm7 | Aadd9/C#  | Esus4 | A/C# D E |
 When all the nights we shared have come to call?  
 
 Chorus 2
@@ -122,12 +122,12 @@ Bridge (Piano)
 | Gmaj7 | %   | F#m7   | % |
 | Fmaj7 | %   | Ebdim7 | E | 
 | Gmaj7 | %   | F#m7   | % |
-| Em    | F#m | Bb     | C |
+| Em    | F#m | Bbmaj7     | C |
 
 Bridge (Guitar Solo)
-| D    | D7 | Cadd9 | % | 
-| Bdim | %  | 
-| Bb   | C  | Bb    | C | 
+| D   D7 | % | Cadd9 | % | 
+| Bdim   | % | 
+| Bb     | C | Bb    | C | 
 (Not sure if it should be Bb or A#, pretty sure in this context it is VIb VIIb I)
 
 Bridge (Ensemble)

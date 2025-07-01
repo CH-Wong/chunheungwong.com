@@ -15,22 +15,30 @@ draft = false
 | Bb | Am b9 (b5)  | Ab | Eb |
 | Ebm6 | Bb | Cbm | Fadd9 | Bb |
 
-| Eb | Bb | Gbdim Gm | Bb | 
-| Eb | Bb | Cb7 | Bb7 | 
 
+
+| Bb | F/A | Ab | Eb/G |
 When the rain is blowing in your face
 And the whole world is on your case
+| Ebm (or Gbdim)? | Bb/D | Cm F7 | Bb |
 I could offer you a warm embrace
 To make you feel my love
 
+| Bb | F/A | Ab | Eb/G |
 When the evening shadows and the stars appear
 And there is no one there to dry your tears
+| Ebm | Bb/D | Cm F7 | Bb | 
 I could hold you for a million years
 To make you feel my love
 
+Chorus
+| Eb | Bb | 
 I know you haven't made your mind up yet
+| Gbdim Gm | Bb |
 But I would never do you wrong
+| Eb | Bb |  
 I've known it from the moment that we met
+| Cb7 | Bb7 |
 No doubt in my mind where you belong
 
 I'd go hungry, I'd go black and blue
