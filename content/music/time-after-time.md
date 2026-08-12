@@ -1,11 +1,11 @@
 +++ 
-title = "Sweet Child of Mine - Guns 'n Roses" 
+title = "Time After Time - Cyndi Lauper" 
 date = "2024-02-22T22:13:04+01:00" 
 author = "Chun Heung Wong"
 cover = "" 
 tags = ["", ""] 
 keywords = ["", ""] 
-description = "" 
+description = "Full chord and lyric chart for 'Time After Time' by Cyndi Lauper, key of C major." 
 showFullContent = false
 readingTime = true 
 draft = false
