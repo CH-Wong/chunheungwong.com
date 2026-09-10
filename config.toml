@@ -94,5 +94,11 @@ enableGitInfo = true
         url = "/music"
         weight = 3
 
+      [[languages.en.menu.main]]
+        identifier = "qr"
+        name = "qr"
+        url = "/qr"
+        weight = 4
+
 
 
