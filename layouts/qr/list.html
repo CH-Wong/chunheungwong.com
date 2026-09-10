@@ -1,0 +1,159 @@
+{{ define "main" }}
+<div class="post">
+  <h1 class="post-title">{{ .Title }}</h1>
+
+  {{ with .Content }}
+    <div class="post-content">{{ . }}</div>
+  {{ end }}
+
+  <div class="qr-tool">
+    <div class="qr-layout">
+      <form id="form" autocomplete="off">
+        <div>
+          <label for="data">Content</label>
+          <textarea id="data" spellcheck="false">https://v-pc.nl</textarea>
+        </div>
+
+        <div class="qr-row">
+          <div>
+            <label for="ecl">Error correction</label>
+            <select id="ecl">
+              <option value="L">L - 7%</option>
+              <option value="M">M - 15%</option>
+              <option value="Q" selected>Q - 25%</option>
+              <option value="H">H - 30%</option>
+            </select>
+          </div>
+          <div>
+            <label for="margin">Quiet zone (modules)</label>
+            <input type="number" id="margin" value="4" min="0" max="16" step="1">
+          </div>
+        </div>
+
+        <div>
+          <label for="resolution">PNG resolution (px, square)</label>
+          <div class="qr-resolution">
+            <select id="resolution">
+              <option value="256">256 x 256</option>
+              <option value="512">512 x 512</option>
+              <option value="800" selected>800 x 800</option>
+              <option value="1024">1024 x 1024</option>
+              <option value="2048">2048 x 2048</option>
+              <option value="4096">4096 x 4096</option>
+              <option value="custom">Custom...</option>
+            </select>
+            <input type="number" id="resolutionCustom" value="800" min="64" max="8192" step="1" disabled>
+          </div>
+        </div>
+
+        <div>
+          <label>Colours</label>
+          <div class="qr-colors">
+            <div><input type="color" id="fg" value="#000000"></div>
+            <div><input type="color" id="bg" value="#ffffff"></div>
+          </div>
+          <div class="qr-warn" id="warn"></div>
+        </div>
+
+        <div class="qr-actions">
+          <button type="button" class="qr-btn" id="downloadPng">Download PNG</button>
+          <button type="button" class="qr-btn qr-btn--ghost" id="downloadSvg">Download SVG</button>
+          <button type="button" class="qr-btn qr-btn--ghost" id="copyPng">Copy PNG</button>
+        </div>
+        <div class="qr-error" id="error"></div>
+      </form>
+
+      <aside>
+        <div class="qr-preview-card">
+          <img id="preview" alt="QR code preview">
+        </div>
+        <div class="qr-meta" id="meta"></div>
+      </aside>
+    </div>
+
+    <p class="qr-colophon">
+      Static page, no backend. QR encoding by
+      <a href="https://github.com/kazuhikoarase/qrcode-generator">qrcode-generator</a> (MIT).
+      Source: <a href="https://github.com/CH-Wong/chunheungwong.com/blob/main/layouts/qr/list.html">github.com/CH-Wong/chunheungwong.com</a>.
+    </p>
+  </div>
+</div>
+
+<style>
+  .qr-tool {
+    --qr-panel: rgba(255, 255, 255, .06);
+    --qr-muted: #a39b94;
+    --qr-danger: #e2777a;
+    margin-top: 30px;
+  }
+  .qr-tool .qr-layout { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  @media (min-width: 640px) { .qr-tool .qr-layout { grid-template-columns: minmax(0, 1fr) 300px; } }
+
+  .qr-tool form { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .qr-tool label {
+    display: block; margin-bottom: 6px;
+    font-size: .8rem; color: var(--qr-muted);
+    letter-spacing: .03em; text-transform: uppercase;
+  }
+
+  .qr-tool textarea,
+  .qr-tool input[type="number"],
+  .qr-tool select {
+    width: 100%; padding: 10px 12px;
+    background: var(--qr-panel); color: var(--color);
+    border: 1px solid var(--qr-muted); border-radius: 4px;
+    font-family: inherit; font-size: .95rem;
+  }
+  .qr-tool textarea { resize: vertical; min-height: 76px; }
+  .qr-tool textarea:focus,
+  .qr-tool input:focus,
+  .qr-tool select:focus { outline: none; border-color: var(--accent); }
+
+  .qr-tool .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .qr-tool .qr-resolution { display: flex; gap: 10px; }
+  .qr-tool .qr-resolution select { flex: 1; }
+  .qr-tool .qr-resolution input { width: 96px; }
+  .qr-tool .qr-resolution input:disabled { opacity: .4; }
+
+  .qr-tool .qr-colors { display: flex; gap: 18px; }
+  .qr-tool .qr-colors > div { flex: 1; }
+  .qr-tool input[type="color"] {
+    width: 100%; height: 38px; padding: 2px;
+    background: var(--qr-panel); border: 1px solid var(--qr-muted);
+    border-radius: 4px; cursor: pointer;
+  }
+
+  .qr-tool .qr-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .qr-tool button.qr-btn {
+    padding: 10px 16px;
+    background: var(--accent); color: #1c1b22;
+    border: 1px solid var(--accent); border-radius: 4px;
+    font-family: inherit; font-size: .9rem; font-weight: 600;
+    cursor: pointer; box-shadow: none;
+  }
+  .qr-tool button.qr-btn--ghost { background: transparent; color: var(--accent); }
+  .qr-tool button.qr-btn:hover { filter: brightness(1.08); }
+  .qr-tool button.qr-btn:active { transform: translateY(1px); }
+
+  .qr-tool aside { min-width: 0; }
+  .qr-tool .qr-preview-card {
+    background: #fff; border: 3px dotted var(--accent);
+    border-radius: 6px; padding: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qr-tool .qr-preview-card img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+
+  .qr-tool .qr-meta { margin-top: 12px; font-size: .78rem; color: var(--qr-muted); line-height: 1.7; }
+  .qr-tool .qr-meta b { color: var(--color); font-weight: 600; }
+
+  .qr-tool .qr-error { color: var(--qr-danger); font-size: .85rem; min-height: 1.2em; margin-top: 4px; }
+  .qr-tool .qr-warn { color: var(--accent); font-size: .85rem; min-height: 1.2em; }
+
+  .qr-tool .qr-colophon { margin-top: 40px; font-size: .78rem; color: var(--qr-muted); }
+  .qr-tool .qr-colophon a { color: var(--accent); }
+</style>
+
+<script src="{{ "qr/qrcode.min.js" | relURL }}"></script>
+<script src="{{ "qr/qr.js" | relURL }}"></script>
+{{ end }}
